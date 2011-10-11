@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title><%= h(yield(:title) || "Dialogue") %></title>
+    <%= stylesheet_link_tag 'messages' %>
+    <%=  javascript_include_tag :all %>
+    <%= csrf_meta_tag %>
+
+    <%= yield(:head) %>
+  </head>
+
+  <body>
+    <% if @player!=Player.find(:first,:conditions=>["user_id=? and game_id=?",current_user.id,@active_game.id]) %>
+      <%@player=Player.find(params[:active_player])%>
+    <% end %>
+
+    <div id="background">
+      <img src="/images/back-texture.jpg" alt="background" style="background-repeat: repeat-y;"/>
+    </div>
+
+
+    <div class="container" style="">
+      <%= yield %>
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,7 @@
+one:
+  case_study_id: 1
+  name: MyString
+
+two:
+  case_study_id: 1
+  name: MyString

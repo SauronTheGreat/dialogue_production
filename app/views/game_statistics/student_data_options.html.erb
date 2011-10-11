@@ -1,0 +1,39 @@
+<%= stylesheet_link_tag 'application', 'welcome_style' %>
+
+<table cellspacing="20px" style="width:75%;margin-left: 11.5%;">
+  <tr>
+    <% @players.each do |player| %>
+        <% if player.id != @current_player.id %>
+            <% if !player.game.status %>
+                <td style="width:<%=100/(@players.count+1)%>%">
+                  <% link_to student_data_view_path(:active_game=>@active_game.id, :active_player=>player.id) do %>
+                      <div id="menu_student_stats" class="menu_container" style="background-image:url('/images/icon_texture.jpg')">
+                        <h2><%= player.name %></h2>
+                        <img src="../images/user_blue.png" alt="background" style="width:150px;height:150px;"/>
+                      </div>
+                  <% end %>
+                </td>
+            <% end %>
+        <% else %>
+            <td style="width:<%=100/(@players.count+1)%>%">
+              <% link_to student_data_view_path(:active_game=>@active_game.id, :active_player=>player.id) do %>
+                  <div id="menu_student_stats" class="menu_container" style="background-image:url('/images/icon_texture.jpg')">
+                    <h2><%= player.name %></h2>
+                    <img src="../images/user_red.png" alt="background" style="width:150px;height:150px;"/>
+                  </div>
+              <% end %>
+        <% end %>
+        </td>
+    <% end %>
+    <% if !@current_player.game.status %>
+        <td style="width:<%=100/(@players.count+1)%>%">
+          <% link_to student_general_statistics_path(:active_game=>@active_game.id, :active_player=>@current_player.id) do %>
+              <div id="general_stats" class="menu_container" style="background-image:url('/images/icon_texture.jpg')">
+                <h2>General Statistics</h2>
+                <%= image_tag("general_statistics.png", :size => "150x150") %>
+              </div>
+          <% end %>
+        </td>
+    <% end %>
+  </tr>
+</table>

@@ -1,0 +1,21 @@
+<%#*<div id="offer_chart" style="padding:20px;position:absolute;top:70px;left:20px;background-image: url('/refreshed/paper3.jpg');z-index: 5;font-weight: normal;font-size:14px;color:black;text-decoration: none;height:330px;">%>
+<h2>Offer Chart</h2>
+<h2><%= @maxoffers %></h2>
+
+<div id="charter"><%=
+  ambling_chart(:line,  :data_file => url_for(:action => 'charting', :active_game=>@active_game.id, :escape => false),
+    :id => "charter", :width => 780, :height => 280,
+    :chart_settings => Ambling::Line::Settings.new({
+        :plot_area => {
+          :margins => {:left => 60, :top => 40, :right => 100, :bottom => 40}
+        },
+        :legend => {
+          :enabled => true, :x => 600, :y => 45, :width => 100, :text_color => '#000',
+          :max_columns => 1, :spacing => 0, :text_size => 10,
+          :key => {:size => 10}
+        },
+      }).to_xml) do
+    content_tag('p', "To see this page properly, you need to upgrade your Flash Player")
+  end
+%></div>
+<%#*</div>%>

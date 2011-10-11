@@ -1,0 +1,19 @@
+<% title "Student Group Metrics" %>
+
+<table>
+  <tr>
+    <th>Student Group</th>
+    <th>Metric</th>
+  </tr>
+  <% for student_group_metric in @student_group_metrics %>
+    <tr>
+      <td><%=h student_group_metric.student_group_id %></td>
+      <td><%=h student_group_metric.metric_id %></td>
+      <td><%= link_to "Show", student_group_metric %></td>
+      <td><%= link_to "Edit", edit_student_group_metric_path(student_group_metric) %></td>
+      <td><%= link_to "Destroy", student_group_metric, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Student Group Metric", new_student_group_metric_path %></p>

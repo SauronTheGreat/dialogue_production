@@ -1,0 +1,28 @@
+<div class="container">
+
+  <div class="sub_container_header" style="width:70%">
+    <h3>New Metric</h3>
+  </div>
+
+  <div class="sub_container_base">
+
+    <%= form_tag :action=>:create,:student_group=>@student_group.id %>
+
+    <% fields_for @metric do |f| %>
+
+      <p>
+        <%= f.label :name %><br />
+        <%= f.text_field :name %>
+      </p>
+      <p>
+        <%= f.label :description %><br />
+        <%= f.text_area :description, :size=>"50x8"%>
+      </p>
+    <% end %>
+
+    <%= submit_tag 'Create' %><br/>
+
+    <%#= link_to 'Cancel', new_student_group_metric_path(:student_group=>params[:student_group]) %>
+
+  </div>
+</div>

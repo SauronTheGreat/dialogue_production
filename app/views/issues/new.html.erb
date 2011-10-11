@@ -1,0 +1,54 @@
+<div id="login_box" class="splash_container" style="width:70%">
+
+  <h2>Issue for <%= CaseStudy.find(params[:case_study]).name %></h2>
+
+  <table style="width:100%;background-image: none;border:none;">
+    <tr style="background-image: none;border:none;">
+      <!--<td style="width:10%;background-image: none;border:none;">-->
+      <!--<span style="float:left;margin-right: 20px;">-->
+      <!--<%= link_to image_tag("/images/back_button.png", :size=>"35x35"), issues_path(:case_study=>params[:case_study]), :title=>"Back to the Case Study" %>-->
+      <!--</span><br/><br/><br/>-->
+      <!--</td>-->
+      <!--<td style="background-image: none;border:none;">-->
+      <% form_for @issue, :case_study=>@case_study.id do |f| %>
+          <p style="color: red"><%= flash[:error] %></p>
+
+          <p>
+            <%= f.hidden_field :case_study_id, :value=>@case_study.id %>
+          </p>
+
+          <p>
+            <%= f.label :name %><br/>
+            <%= f.text_field :name %>
+          </p>
+
+          <!--This is dummy code-->
+          <% if @case_study.eval_type %>
+              <p>
+                <% if Issue.find(:first, :conditions=>['case_study_id=? and flag=?', @case_study.id, "Main Offer Type Issue"]) %>
+                    <% f.select :flag, [["Ancillary Binary Type Issue", "Ancillary Binary Type Issue"]] %>
+                <% else %>
+                    <% f.select :flag, [["Main Offer Type Issue", "Main Offer Type Issue"], ["Ancillary Binary Type Issue", "Ancillary Binary Type Issue"]] %>
+                <% end %>
+              </p>
+          <% else %>
+              <br/>
+              <% if Issue.find(:first, :conditions=>['case_study_id=? and flag=?', @case_study.id, "Main Scorecard Issue"]) %>
+                  <% f.select :flag, [["Ancillary Scorecard Issue", "Ancillary Scorecard Issue"]] %>
+              <% else %>
+                  <% f.select :flag, [["Main Scorecard Issue", "Main Scorecard Issue"], ["Ancillary Scorecard Issue", "Ancillary Scorecard Issue"]] %>
+              <% end %>
+              <!--End Dummy code-->
+
+              <p>
+                <%= f.label "Weightage (%)" %><br/>
+                <%= f.text_field :weightage %>
+              </p>
+          <% end %>
+          <p><%= f.submit %></p>
+      <% end %>
+      </td>
+    </tr>
+  </table>
+
+</div>

@@ -1,0 +1,44 @@
+<div class="container">
+
+  <div class="sub_container_header" style="background: none;border: none;">
+    <h1>Surveys</h1>
+    <span style="font-size:12px;color:black;text-decoration: none;float:right;margin-right:40px;text-align:center;margin-top:-60px;">
+      <%= link_to image_tag("/images/questionnaire.png", :style=>"width:35px;height:35px;"), new_questionnaire_path(:flag=>params[:flag], :sgid=>params[:sgid]) %>
+      <br/>Add Survey
+    </span>
+
+  </div>
+
+  <div class='sub_container_base'>
+
+    <table style="width: 100%">
+      <tr>
+        <th>Name</th>
+
+        <th></th>
+      </tr>
+
+      <% @questionnaires.each do |questionnaire| %>
+          <tr>
+
+            <% if params[:flag].nil? %>
+                <th><%= link_to questionnaire.name , questionnaire %>  <%= image_tag("/images/bullet.png") %></th>
+                <td><%= link_to 'Delete', questionnaire, :confirm => 'Are you sure?', :method => :delete %></td>
+            <% else %>
+                <th><%= link_to questionnaire.name , :controller => :student_groups, :action => 'populate_db', :id=>params[:sgid], :qid=>questionnaire.id, :flag=>params[:flag] %>  <%= image_tag("/images/bullet.png") %></th>
+                <td><%= link_to 'Show Questions', :controller => :questions, :action => 'list', :sgid=>params[:sgid], :qid=>questionnaire.id, :flag=>params[:flag] %></td>
+
+            <% end %>
+          </tr>
+      <% end %>
+    </table>
+
+    <br/>
+    <% if params[:flag].nil? %>
+    <% else %>
+        <h3>No Questionnaires found..</h3>
+        <%= link_to 'Create New Questioannaire', new_questionnaire_path(:flag=>params[:flag], :sgid=>params[:sgid]) %>
+    <% end %>
+
+  </div>
+</div>

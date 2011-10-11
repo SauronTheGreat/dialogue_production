@@ -1,0 +1,5 @@
+<div class="container" style="text-align: center">
+  <h2>Your file is ready...</h2>
+  <%= link_to image_tag('/images/download_report.png'), "/reports/#{params[:filename]}" %><br/>
+  <%= link_to "Download Now!", "/reports/#{params[:filename]}" %><br/><br/>
+</div>

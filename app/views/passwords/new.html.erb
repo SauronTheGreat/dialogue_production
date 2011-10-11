@@ -1,0 +1,12 @@
+<h2 style="color: white">Forgot your password?</h2>
+
+<% form_for resource_name, resource, :url => password_path(resource_name) do |f| %>
+  <%= f.error_messages %>
+
+  <p style="color: white;"><%= f.label :email %></p>
+  <p style="color: white;"><%= f.text_field :email %></p>
+
+  <p><%= f.submit "Send me reset password instructions" %></p>
+<% end %>
+
+<%= render :partial => "shared/devise_links" %>

@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title><%= h(yield(:title) || "Dialogue") %></title>
+    <%= stylesheet_link_tag 'messages' %>
+    <%=  javascript_include_tag :all %>
+    <%= csrf_meta_tag %>
+
+    <%= yield(:head) %>
+  </head>
+
+  <body>
+    <% if !@player=Player.find(:first,:conditions=>["user_id=? and game_id=?",current_user.id,@active_game.id]) %>
+      <%@player=Player.find(params[:active_player])%>
+    <% end %>
+    <div id="background">
+      <img src="/images/back-texture.jpg" alt="background" style="background-repeat: repeat-y;"/>
+    </div>
+
+    <div id="top_panel" class="container">
+      <div id="head_banner">
+
+        <span style="text-align:center;margin-top:-80px;font-size:12px;color:black;font-weight: bold;text-decoration: none;">
+          <table style="background-image:none;border:none;width:auto;">
+            <tr>
+              <td style="background-image:none;text-align: center;border:none;">
+                <span style="font-size:48px;font-weight: bolder">Dialogue</span><br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The Negotiation Platform
+              </td>
+              <a href="/" style="float:right;font-weight:lighter;font-size:small;text-align: center;text-decoration: none;color:black;">
+                <img src="/images/home_icon.png" alt="background" style="width:65px;height:65px"/><br/>
+                Home
+              </a>
+              <a href="<%= sent_index_path(:active_game=>@active_game.id,:active_player=>@player.id) %>" style="float:right;font-weight:lighter;font-size:small;text-align: center;text-decoration: none;color:black;" title="Inbox">
+                <img src="/images/sentmail.png" alt="Sent Mail" style="margin-top:0px;width:67px;height:67px"/><br/>
+                SentMail
+              </a>
+              <% if @active_game.status %>
+                <a href="<%= new_sent_path(:active_game=>@active_game.id,:active_player=>@player.id) %>" style="float:right;font-weight:lighter;font-size:small;text-align: center;text-decoration: none;color:black;" title="Inbox">
+                  <img src="/images/new_mail.png" alt="Inbox" style="margin-top:2px;width:65px;height:65px"/><br/>
+                  Compose
+                </a>
+              <% end %>
+              <a href="<%= mailbox_index_path(:active_game=>@active_game.id,:active_player=>@player.id) %>" style="float:right;font-weight:lighter;font-size:small;text-align: center;text-decoration: none;color:black;" title="Inbox">
+                <img src="/images/inboxl.png" alt="Inbox" style="margin-top:0px;width:67px;height:67px"/><br/>
+                Inbox
+              </a>
+              <% @rule_id = Rule.find(:first,:conditions=>['name=?',"Planning Document"]).id %>
+              <% if StudentGroupRule.find(:first,:conditions=>['student_group_id=? and rule_id=?',@player.game.student_group.id,@rule_id]) %>
+                <% if @planqnav=Planq.find(:first,:conditions=>['player_id=?',@player.id]) %>
+                  <a href="<%= planq_path(:id=>@planqnav.id, :active_game=>@active_game.id,:active_player=>@player.id) %>" style="float:right;font-weight:lighter;font-size:small;text-align: center;text-decoration: none;color:black;" title="Inbox">
+                    <img src="/images/planning.png" alt="Inbox" style="margin-top:6px;width:61px;height:61px"/><br/>
+                    PlanDoc
+                  </a>
+                <% else %>
+                  <a href="<%= new_planq_path(:active_game=>@active_game.id,:active_player=>@player.id) %>" style="float:right;font-weight:lighter;font-size:small;text-align: center;text-decoration: none;color:black;" title="Inbox">
+                    <img src="/images/planning.png" alt="Inbox" style="margin-top:6px;width:61px;height:61px"/><br/>
+                    PlanDoc
+                  </a>
+                <% end %>
+              <% end %>
+              <a href="javascript:history.go(-1)" style="float:right;font-weight:lighter;font-size:small;text-align: center;text-decoration: none;color:black;" title="Go to the Previous Page">
+                <img src="/images/back.png" alt="background" style="margin-top:2px;width:64px;height:64px"/><br/>
+                Back
+              </a>
+            </tr>
+          </table>
+        </span>
+      </div>
+    </div>
+
+    <div class="container" style="">
+      <%= yield %>
+    </div>
+
+  </body>
+</html>

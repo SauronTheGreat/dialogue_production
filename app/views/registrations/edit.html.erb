@@ -1,0 +1,33 @@
+<% content_for :head_banner do %>
+    <img src="../images/isb_logo.jpg" alt="background" style="float:right;margin-top:5px;width:162px;height:61px"/>
+    <span style="font-size:48px;font-weight: bolder">Dialogue</span><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The Negotiation Platform
+<% end %>
+
+<div id="login_box" class="splash_container" style="width:40%">
+  <h2>Edit <%= resource_name.to_s.humanize %></h2>
+
+  <% form_for resource_name, resource, :url => registration_path(resource_name), :html => {:method => :put} do |f| -%>
+      <%= f.error_messages %>
+
+      <p><%= f.label :username %>
+        <%= f.text_field :username, :disabled=>true %></p>
+
+      <p><%= f.label :email %>
+        <%= f.text_field :email, :disabled=>true %></p>
+
+      <p><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br/>
+        <%= f.password_field :password %></p>
+
+      <p><%= f.label :password_confirmation %><br/>
+        <%= f.password_field :password_confirmation %></p>
+
+      <p><%= f.label :current_password %><i> (need your current password to confirm changes)</i><br/>
+        <%= f.password_field :current_password %></p>
+
+
+      <p><%= f.submit "Update" %></p>
+  <% end -%>
+
+  <%= render :partial => "shared/devise_links" %>
+</div>

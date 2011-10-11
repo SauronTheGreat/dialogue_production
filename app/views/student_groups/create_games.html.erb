@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="sub_container_header" style="background-image: none;border:none;">
+	<h3><%= @gamecount %> games created in <%= h @student_group.name.titleize %></h3>
+  </div>
+
+  <div class="sub_container_base">
+	<table style="background-image: none;border:none;">
+	  <tr style="background-image: none;border:none;">
+		<td style="background-image: none;border:none;">
+		  <% @allplayers=@student_group.players %>
+
+		  <table>
+			<tr>
+
+			  <th>Game Id</th>
+			  <th>Player Name</th>
+			  <th>Player Role</th>
+			</tr>
+
+			<% @players.each do |player| %>
+			  <tr>
+				<td><%= h player.game.id %></td>
+				<td><%= h player.user.first_name %> <%= h player.user.last_name %></td>
+				<td><%= h player.role.name %></td>
+			  </tr>
+			<% end %>
+		  </table>
+		</td>
+	  </tr>
+	  <tr>
+		<td colspan="2" style="background-image: none;border:none;">
+		  <br/>
+		  <%= @leftover %> students left unallocated.<br/>
+		  <ul>
+			<% @leftover.times do |pl| %>
+			  <li>
+				<%= h @unallocated_student[pl].first_name %> <%= h @unallocated_student[pl].last_name %> at
+				<%= h @unallocated_student[pl].email %>
+
+
+			  </li>
+			  <br/>
+			<% end %>
+		  </ul>
+		</td>
+	  </tr>
+	</table>
+  </div>
+  <br/>
+</div>

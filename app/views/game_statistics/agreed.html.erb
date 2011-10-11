@@ -1,0 +1,9 @@
+<%= form_tag :action => 'close_game',:active_game=>@active_game.id %>
+Thanks for participating in the simulation. Has agreement been reached ?
+<br/>
+<br/>
+  <%= radio_button_tag :agreement_status, true%> Yes
+  <%= radio_button_tag :agreement_status, false%> No
+<br/>
+<br/>
+<%= submit_tag %>

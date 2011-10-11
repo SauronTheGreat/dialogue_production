@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="sub_container_base">
+    <h3><%= @question.statement %></h3>
+
+    <% form_tag :action => 'create', :question_id=>@question.id do %>
+        <% @options.each_with_index do |option, index| %>
+            <% fields_for "options[#{index}]", option do |f| %>
+
+                <%= f.hidden_field :question_id, :value=>@question.id %>
+
+                <%= "Option #{index+1}:" %>
+                <%= f.text_field :name %>
+                <br> <br>
+
+            <% end %>
+
+        <% end %>
+        <%= submit_tag %>
+    <% end %>
+
+
+
+
+  </div>
+</div>

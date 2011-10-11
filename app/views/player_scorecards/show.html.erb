@@ -1,0 +1,20 @@
+<% title "Player Scorecard" %>
+
+<p>
+  <strong>Player:</strong>
+  <%=h @player_scorecard.player_id %>
+</p>
+<p>
+  <strong>Issue:</strong>
+  <%=h @player_scorecard.issue_id %>
+</p>
+<p>
+  <strong>Value:</strong>
+  <%=h @player_scorecard.value %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_player_scorecard_path(@player_scorecard) %> |
+  <%= link_to "Destroy", @player_scorecard, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", player_scorecards_path %>
+</p>

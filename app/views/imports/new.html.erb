@@ -1,0 +1,51 @@
+<% if current_user.admin %>
+    <div id="login_box" class="splash_container" style="width: 80%">
+<% else %>
+    <div id="login_box" class="splash_container">
+<% end %>
+<h2>Upload a CSV file to import Users into the database</h2>
+
+<p><%= flash[:error] %></p>
+<% form_for @import, :url=>{:action =>'create', :sgid => @sgid}, :html => {:multipart => true} do |f| %>
+
+
+    <%= f.file_field :csv %>
+    <% if params[:sgid].nil? %>
+        <%= f.hidden_field :datatype, :value=>"users_without_roles " %>
+    <% else %>
+        <%= f.hidden_field :datatype, :value=>"users_with_roles " %>
+    <% end %>
+    <!--<select name="import[datatype]" size="1">-->
+    <!--<option value="users_with_roles"> Users With Roles </option>-->
+    <!--<option value="users_without_roles"> Users Without roles </option>-->
+    <!--</select>-->
+    <br/>
+    <%= f.submit "Import" %>
+    <br/>
+    <br/>
+    Please use a header row and keep strictly to the following order of fields: <br/> <br/>
+    <table>
+      <tr>
+        <td style="background: none;font-size: small">ID Tag</td>
+        <td style="background: none;font-size: small">First Name</td>
+        <td style="background: none;font-size: small">Last Name</td>
+        <td style="background: none;font-size: small">Username</td>
+        <% if current_user.admin %>
+            <td style="background: none;font-size: small">Educator Group</td>
+            <td style="background: none;font-size: small">Admin Flag</td>
+            <td style="background: none;font-size: small">Educator Flag</td>
+        <% end %>
+        <td style="background: none;font-size: small">Email</td>
+        <% if current_user.admin %>
+            <td style="background: none;font-size: small">Client</td>
+        <% end %>
+      </tr>
+    </table>
+    <br/>
+    <br/>
+    Username and Email have to be unique across all users of the system.
+    If you get an error while uploading, contact your admin to ascertain whether any of the username or emails are already in use.
+    <br/>
+    <br/>
+<% end %>
+</div>

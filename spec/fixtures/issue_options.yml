@@ -1,0 +1,9 @@
+one:
+  issue_id: 1
+  option: MyString
+  weightage: 1
+
+two:
+  issue_id: 1
+  option: MyString
+  weightage: 1

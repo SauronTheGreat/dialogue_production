@@ -1,0 +1,53 @@
+<div class="container">
+
+  <div class="sub_container_header" style="background: none;border: none;">
+    <h1>Listing Users</h1>
+    <!--<span style="float:right;text-align:center;margin-top:-60px;"><a href="/users/sign_up" style="font-size:12px;color:black;text-decoration: none;"> <img src="images/users.png" style="width:35px;height:35px;"/><br/>Add User</a></span>-->
+    <span style="float:right;margin-right:80px;text-align:center;margin-top:-60px;"><a href="/imports/new" style="font-size:12px;color:black;text-decoration: none;">
+      <img src="images/bulk_upload.png" style="width:35px;height:35px;"/><br/>Bulk Upload</a></span>
+  </div>
+
+  <div class="sub_container_base" style="height:300px;overflow:auto">
+    <% if @users %>
+        <table>
+          <tr>
+            <th style="width:20%"><strong>Username</strong></th>
+            <th style="width:20%"><strong>First name</strong></th>
+            <th style="width:20%"><strong>Last name</strong></th>
+            <th style="width:10%"><strong>Identifier</strong></th>
+            <th style="width:20%"><strong>Group</strong></th>
+            <th style="width:5%;text-align:center;"><strong>Ad</strong></th>
+            <th style="width:5%;text-align:center;"><strong>Ed</strong></th>
+          </tr>
+          <tbody>
+
+          <% @users.each do |u| %>
+              <tr>
+                <td style="width:20%"><%= link_to_if(can?(:read, User), "#{u.username}", user_path(u.id)) {} %></td>
+                <td style="width:20%"><%= h u.first_name %></td>
+                <td style="width:20%"><%= h u.last_name %></td>
+                <td style="width:10%"><%= h u.identifier %></td>
+                <td style="width:20%">
+                  <% if FacilitatorGroup.exists?(u.facilitator_group_id) %>
+                      <%= link_to_if(can?(:read, FacilitatorGroup), u.facilitator_group.name, u.facilitator_group) %>
+                  <% end %> </td>
+                <td style="width:5%;text-align:center;">
+                  <%= if u.admin then
+                          "X"
+                      end %>
+                </td>
+                <td style="width:5%;text-align:center;">
+                  <%= if u.educator then
+                          "X"
+                      end %>
+                </td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+    <% else %>
+        No users created yet.
+        <br>
+    <% end %>
+  </div>
+</div>

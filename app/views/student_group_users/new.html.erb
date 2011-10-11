@@ -1,0 +1,53 @@
+<script type="text/javascript">
+  $(document).ready(function()
+  {
+    $('#paradigm_all').click(function () {
+      $('[type="checkbox"]').attr('checked', this.checked);
+    });
+  });
+
+</script>
+
+<div class="container">
+  <div class="sub_container_header" style="background-image: none;border:none;">
+    <h2><%=h @student_group.name.titleize%></h2>
+  </div>
+
+
+  <div class="sub_container_base" style="overflow:visible;">
+    <input type="checkbox" id="paradigm_all"/>Select All
+    <br/>
+
+    <%= form_tag :action => 'create',:student_group=>@student_group.id %>
+    <div style="overflow:auto;height:205px;">
+      <br/>
+      <table style="width:100%;border:none;">
+        <tr>
+          <% @rowcount=0 %>
+          <% @student_group_users.each_with_index do |student_group_user, index| %>
+            <% fields_for "student_group_users[#{index}]", student_group_user do |f| %>
+              <% @rowcount+=1 %>
+              <% xuser=@allusers[index] %>
+              <%= f.hidden_field :student_group_id, :value=>@student_group.id %>
+              <% if StudentGroupUser.find(:first,:conditions=>["student_group_id=? and user_id=?",@student_group.id,xuser.id])%>
+                <% @state= true %>
+              <%else%>
+                <% @state= false %>
+              <% end %>
+              <td>
+                <%= f.check_box :user_id, {:checked => @state}, "#{xuser.id}", ""  %>
+                <%= xuser.first_name %> <%= xuser.last_name %><br/>
+              </td>
+              <% if (@rowcount.remainder(3) ==0) %>
+              </tr>
+              <tr>
+              <% end %>
+            <% end %>
+          <% end %>
+        </tr>
+      </table>
+    </div>
+    <br/>
+    <%= submit_tag "Create Group", :class=>"cbutton"%>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+one:
+  game_role_id: 1
+  student_id: 1
+  student_name: MyString
+
+two:
+  game_role_id: 1
+  student_id: 1
+  student_name: MyString

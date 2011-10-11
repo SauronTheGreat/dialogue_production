@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="sub_container_header">
+    <h3><%=h @student_group.name%></h3>
+  </div>
+
+  <div class="sub_container_base">
+    <table style="background-image: none;border:none;width:100%">
+      <tr>
+        <td style="text-align:center">
+          <%= link_to 'Add A New Metric', new_metric_path(:student_group=>@student_group.id) %>
+        </td>
+      </tr>
+      <%= form_tag :action => 'create' %>
+      <% @student_group_metrics.each_with_index do |student_group_metric, index| %>
+        <% fields_for "student_group_metrics[#{index}]", student_group_metric do |f| %>
+          <% xmetric=Metric.find(index+1) %>
+          <%= f.hidden_field :student_group_id, :value=>@student_group.id %>
+          <% if StudentGroupMetric.find(:first,:conditions=>["student_group_id=? and metric_id=?",@student_group.id,index+1])%>
+            <% @state= true %>
+          <%else%>
+            <% @state= false %>
+          <% end %>
+          <tr>
+            <td style="background-image: none;border:none;">
+              <%= f.check_box :metric_id, {:checked => @state}, "#{index+1}", ""  -%>
+              <%= link_to xmetric.name, "#", :title=>xmetric.description%><br/>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+    <table style="background-image: none;border:none;">
+      <tr>
+        <td style="background-image: none;border:none;">
+          <%= submit_tag "Submit"%>
+        </td>
+        <td style="background-image: none;border:none;">
+          <%= link_to 'Cancel', @student_group %>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

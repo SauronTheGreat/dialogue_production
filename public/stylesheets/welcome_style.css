@@ -1,0 +1,35 @@
+th{
+    border:none;
+}
+table{
+    border:none;
+}
+td{
+    border:none;
+    background-image:none;
+
+}
+div.menu_container {
+    width: 80%;
+    height: 25%;
+    background-color: transparent;
+    padding: 10px 10px;
+    padding-bottom: 30px;
+    border: solid 5px white;
+    border-radius: 10px;
+    margin-top: 50px;
+    text-align: center;
+    color:black;
+}
+div.small_menu_container {
+    width: 80%;
+    height: 15%;
+    background-color: transparent;
+    padding: 10px 10px;
+    padding-bottom: 30px;
+    border: solid 5px white;
+    border-radius: 10px;
+    margin-top: 50px;
+    text-align: center;
+    color:black;
+}

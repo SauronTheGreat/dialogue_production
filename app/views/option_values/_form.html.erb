@@ -1,0 +1,71 @@
+<div class="container">
+
+  <div class="sub_container_header" style="background-image: none;border:none;">
+    <h2>Option Payoffs for <%= h @issue.name %></h2>
+<%# if current_user.admin %>
+<%#*<span style="float:right;text-align:center;margin-top:-60px;font-size:12px;color:black;text-decoration: none;">%>
+<%#=link_to image_tag("/images/options.png", :size=>"35x35"), new_option_value_path(:active_issue=>@issue.id), :title=>"Each Role can have different payoffs for the same option" %>
+<%#*<br/>Role Payoffs%>
+<%#*</span>%>
+<%# end %>
+  </div>
+
+
+  <div class="sub_container_base">
+
+
+    <%= form_tag :action => 'create', :active_issue=>@issue.id %>
+    <div style="height:250px;overflow:auto;">
+      <table>
+        <tr>
+          <th>Issue</th>
+          <th>Option</th>
+          <% @allroles.each do |role| %>
+              <th><%= role.name %></th>
+          <% end %>
+        </tr>
+
+        <% @optionindex=0 %>
+        <% @newrow=true %>
+        <% @roleindex=0 %>
+
+        <% @option_values.each_with_index do |option_value, index| %>
+            <% fields_for "option_values[#{index}]", option_value do |f| %>
+
+                <% if @newrow then %>
+                    <tr>
+                      <td><%= h @issue.name %></td>
+                      <td><%= h @alloptions[@optionindex].option %></td>
+                      <% @newrow=false %>
+                <% end %>
+
+                <% if @roleindex<@rcount-1 %>
+                    <%= f.hidden_field :role_id, :value=>@allroles[@roleindex].id %>
+                    <%= f.hidden_field :issue_option_id, :value=>@alloptions[@optionindex].id %>
+                    <% if @exist_value=OptionValue.find(:first, :conditions=>['issue_option_id=? and role_id=?', @alloptions[@optionindex].id, @allroles[@roleindex].id]) %>
+                        <td><%= f.text_field :value, :value=> @exist_value.value %></td>
+                    <% else %>
+                        <td><%= f.text_field :value %></td>
+                    <% end %>
+                    <% @roleindex+=1 %>
+                <% else %>
+                    <%= f.hidden_field :role_id, :value=>@allroles[@roleindex].id %>
+                    <%= f.hidden_field :issue_option_id, :value=>@alloptions[@optionindex].id %>
+                    <% if @exist_value=OptionValue.find(:first, :conditions=>['issue_option_id=? and role_id=?', @alloptions[@optionindex].id, @allroles[@roleindex].id]) %>
+                        <td><%= f.text_field :value, :value=> @exist_value.value %></td>
+                    <% else %>
+                        <td><%= f.text_field :value %></td>
+                    <% end %>
+                    <% @newrow=true %>
+                    <% @optionindex+=1 %>
+                    <% @roleindex=0 %>
+                    </tr>
+                <% end %>
+            <% end %>
+        <% end %>
+      </table>
+    </div>
+    <%= submit_tag "Create", :class=>"cbutton" %>
+    | <%= link_to "Cancel", new_issue_option_path(:active_issue=>@issue.id) %>
+  </div>
+</div>

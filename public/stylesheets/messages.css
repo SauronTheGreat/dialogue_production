@@ -1,0 +1,194 @@
+body {
+    background-color: black;
+    /*  #4B7399*/
+    font-family: Verdana, Helvetica, Arial;
+    font-size: 14px;
+}
+
+#background {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    left: 0px;
+    top: 0px;
+    position: absolute;
+    z-index: -99;
+}
+
+#background img { width: 100%; height: 100%;}
+
+a img {
+    border: none;
+}
+
+a {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.clear {
+    clear: both;
+    height: 0;
+    overflow: hidden;
+}
+
+div.container {
+    width: 75%;
+    margin: 0 auto;
+    background-color: #FFF;
+    padding: 20px 40px;
+    border: solid 1px black;
+    border-radius: 20px;
+    margin-top: 20px;
+}
+div.sub_container_header {
+    width: 75%;
+    margin: 0 auto;
+    background-image: url('../images/blue_back.jpg');
+    padding: 5px 40px;
+    border: solid 1px black;
+    border-radius: 20px;
+    margin-top: 20px;
+}
+div.sub_container_base {
+    width: 75%;
+    height: 300px;
+    overflow: auto;
+    margin: 0 auto;
+    padding: 20px 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+}
+
+div.splash_container {
+    width: 20%;
+    margin: 0 auto;
+    background-color: #FFF;
+    padding: 20px 40px;
+    border: solid 1px black;
+    border-radius: 20px;
+    margin-top: 50px;
+}
+div.signin_container {
+    width: 20%;
+    /*  margin: 0 auto;*/
+    margin-left: 60%;
+    background-image: url('../images/back-texture.jpg');
+    /*  background-color: black;*/
+    color: white;
+    padding: 10px 10px;
+    border: solid 1px black;
+    border-radius: 20px;
+    margin-top: -90px;
+    margin-bottom: 85px;
+    text-align: center;
+}
+white_hyperlink {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size:14px;
+}
+div.menu_container {
+    width: 20%;
+    margin: 0 auto;
+    background-color: #FFF;
+    padding: 10px 10px;
+    border: solid 1px black;
+    border-radius: 20px;
+    margin-top: -20px;
+    margin-left: 10%;
+}
+
+
+#flash_notice, #flash_error {
+    padding: 5px 8px;
+    margin: 10px 0;
+}
+
+#flash_notice {
+    background-color: #CFC;
+    border: solid 1px #6C6;
+}
+
+#flash_error {
+    background-color: #FCC;
+    border: solid 1px #C66;
+}
+
+.fieldWithErrors {
+    display: inline;
+}
+
+#errorExplanation {
+    width: 400px;
+    border: 2px solid #CF0000;
+    padding: 0px;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+    background-color: #f0f0f0;
+}
+
+#errorExplanation h2 {
+    text-align: left;
+    font-weight: bold;
+    padding: 5px 5px 5px 15px;
+    font-size: 12px;
+    margin: 0;
+    background-color: #c00;
+    color: #fff;
+}
+
+#errorExplanation p {
+    color: #333;
+    margin-bottom: 0;
+    padding: 8px;
+}
+
+#errorExplanation ul {
+    margin: 2px 24px;
+}
+
+#errorExplanation ul li {
+    font-size: 12px;
+    list-style: disc;
+}
+table{
+    border: solid black 2px;
+    border-collapse: collapse;
+    padding: 2px;
+    width:100%;
+}
+td {
+    /*    background-image: url('/images/blue_back_td.jpg');*/
+    border: solid black 2px;
+    text-align: left;
+    padding: 5px;
+}
+th {
+    background-image: url('/images/back-texture.jpg');
+    /* for IE */
+    /*    filter:alpha(opacity=20);*/
+    /* CSS3 standard */
+    /*    opacity:0.2;*/
+    color:white;
+    border: solid black 2px;
+    text-align: left;
+    font-weight: bold;
+    padding: 5px;
+}
+
+input.cbutton
+{
+    font-size:16px;
+    width:120px;
+    height:30px;
+}
+input.fbutton
+{
+    font-size:16px;
+    width:100%;
+    height:30px;
+}
+

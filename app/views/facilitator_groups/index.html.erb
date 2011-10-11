@@ -1,0 +1,28 @@
+<div class="container">
+
+  <div class="sub_container_header">
+    <h1>Educator Groups</h1>
+    <span style="float:right;text-align:center;margin-top:-60px;"><a href="/facilitator_groups/new" style="font-size:12px;color:black;text-decoration: none;"> <img src="images/users-icon.png" style="width:35px;height:35px;"/><br/>Add Group</a></span>
+  </div>
+
+  <div class="sub_container_base">
+    <table>
+      <tr>
+        <th>Client</th>
+        <th>Educator</th>
+        <th>Group Name</th>
+      </tr>
+      <% for facilitator_group in @facilitator_groups %>
+        <tr>
+          <td><%=h Client.find(facilitator_group.client_id).name%> </td>
+          <td><%=h User.find(facilitator_group.user_id).first_name%> <%=h User.find(facilitator_group.user_id).last_name%></td>
+          <td><%=h facilitator_group.name %></td>
+          <td><%= link_to "Show", facilitator_group %></td>
+          <td><%= link_to "Edit", edit_facilitator_group_path(facilitator_group) %></td>
+          <td><%= link_to "Delete", facilitator_group, :confirm => 'Are you sure?', :method => :delete %></td>
+        </tr>
+      <% end %>
+    </table>
+
+  </div>
+</div>

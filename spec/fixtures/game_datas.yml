@@ -1,0 +1,11 @@
+one:
+  game_id: 1
+  data_of: MyString
+  data_is: MyString
+  value: MyString
+
+two:
+  game_id: 1
+  data_of: MyString
+  data_is: MyString
+  value: MyString

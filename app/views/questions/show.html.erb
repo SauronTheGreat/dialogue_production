@@ -1,0 +1,61 @@
+<div class="container">
+
+  <div class="sub_container_base">
+
+    <table>
+
+      <p id="notice"><%= notice %></p>
+
+      <tr>
+        <td>
+          <b>Statement:</b>
+          <%= @question.statement %>
+        </td>
+      </tr>
+      <tr>
+
+
+        <td>
+          <b>Questionnaire:</b>
+          <%= Questionnaire.find(@question.questionnaire_id).name %>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <b>Type:</b>
+          <%= Type.find(@question.type_id).name %>
+        </td>
+      </tr>
+
+      <tr>
+      <td>
+        <b>Answer:</b>
+        <%= @question.answer %>
+      </td>
+        </tr>
+      <tr>
+
+      <td><%= link_to 'Edit', edit_question_path(@question) %> |
+
+      </tr>
+
+        <tr>
+
+
+      <% if @question.type_id != 3 && @question.options.count==0%>
+              You have not added any options
+
+         <td> <%= link_to 'Add Options', :controller => :options, :action => 'new', :qid=>@question.id %></td>
+           <% else %>
+               <td> You have <%= @question.options.count %> options </td>
+          <td><%= link_to 'Show all Options', :controller => :options, :action => 'index', :qid=>@question.id %></td>
+
+      <% end %>
+          </tr>
+     <tr><td> <%= link_to "Back To Questionnaires", :controller => 'questionnaires', :action => "index" %></td></tr>
+
+    </table>
+  </div>
+
+</div>

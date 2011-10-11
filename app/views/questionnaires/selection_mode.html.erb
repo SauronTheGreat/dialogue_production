@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="sub_container_base">
+    <table>
+      <tr>
+        <th>Mode</th>
+        <th>Method</th>
+      </tr>
+      <tr>
+        <td>Create New</td>
+        <td>
+          <%= link_to 'Create New Questionnaire',new_questionnaire_path(:flag=>@flag, :sgid=>@sgid) %>
+        </td>
+        </tr>
+      <tr>
+
+        <td>Use Exisiting</td>
+        <td>
+          <%= link_to 'Use Existing Questionnaire',:controller => :questionnaires,:action => 'index',:uid=>current_user.id ,:flag=>@flag,:sgid=>@sgid %>
+        </td>
+
+
+      </tr>
+    </table>
+  </div>
+</div>

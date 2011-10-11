@@ -1,0 +1,15 @@
+<div id="login_box" class="splash_container">
+
+<h2>Add Facilitator to <%=@student_group.name%></h2>
+
+<% form_for @student_group do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :facilitator %><br/>
+    <%= f.select :facilitator, User.find(:all,:conditions=>['client_id=? and educator=?',@student_group.client.id,true]).collect{|s| [s.username,s.username]} %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %>
+
+<p><%= link_to "Back to List", student_groups_path %></p>
+</div>

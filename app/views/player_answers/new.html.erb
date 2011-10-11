@@ -1,0 +1,17 @@
+<div class="container">
+
+
+  <% if params[:prequestionnaire].to_i==1 %>
+      <h2>Pre Exercise Survey</h2>
+  <% else %>
+      <h2>Post Exercise Survey</h2>
+  <% end %>
+  <% if params[:error] %>
+      <h3><%= params[:error] %></h3>
+  <% end %>
+  <div class="sub_container_base" style="width:90%">
+    <%= render 'form' %>
+
+
+  </div>
+</div>

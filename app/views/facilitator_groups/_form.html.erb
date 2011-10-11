@@ -1,0 +1,18 @@
+<% form_for @facilitator_group do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :client %>
+    <%= f.select :client_id, Client.all.collect{|s| [s.name, s.id]} %>
+  </p>
+  <p>
+    <%= f.label "Educator"%>
+    <%= f.select :user_id, User.all(:conditions=>['admin=? or educator=?',TRUE,TRUE]).collect{|s| [s.username, s.id]} %>
+<br/>
+  <span style="font-style: italic;font-size: small">(If you can't find the educator's name here, go to <a href="/users">User Management</a> to create it)</span>
+  </p>
+  <p>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %>

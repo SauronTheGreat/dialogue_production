@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="sub_container_header">
+  </div>
+
+  <div class="sub_container_base">
+    <p>
+      <b>Student group:</b>
+      <%=h StudentGroup.find(@student_group_user.student_group_id).name %>
+    </p>
+
+    <p>
+      <b>User:</b>
+      <%=h User.find(@student_group_user.user_id) %>
+    </p>
+
+
+    <%= link_to 'Edit', edit_student_group_user_path(@student_group_user) %> |
+    <%= link_to 'Back', student_group_users_path %>
+
+  </div>
+</div>

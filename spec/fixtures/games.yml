@@ -1,0 +1,9 @@
+one:
+  case_study_id: 1
+  status: false
+  agreement_status: false
+
+two:
+  case_study_id: 1
+  status: false
+  agreement_status: false

@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  pre_neg_taken: false
+  post_neg_taken: false
+  pre_neg_required: false
+  post_neg_required: false
+  planning_required: false
+
+two:
+  pre_neg_taken: false
+  post_neg_taken: false
+  pre_neg_required: false
+  post_neg_required: false
+  planning_required: false

@@ -1,0 +1,183 @@
+<div class="container">
+
+<%#* This is the view the Administrator gets to see %>
+
+  <div id="admin _view">
+    <% if current_user.admin %>
+
+      <div class="sub_container_header">
+        <h1>Exercises</h1>
+        <!--<span style="float:right;text-align:center;margin-top:-60px;"><a href="/case_studies/new" style="font-size:12px;color:black;text-decoration: none;"> <img src="images/case.png" style="width:35px;height:35px;"/><br/>Add Case</a></span>-->
+      </div>
+
+      <div class="sub_container_base">
+
+        <table style="width:100%">
+          <tr>
+            <th>Name</th>
+            <th>Party Type</th>
+            <th>Game Type</th>
+            <th>Issue Type</th>
+            <th>Delivery Type</th>
+            <th>Evaluation Type</th>
+          </tr>
+          <% for case_study in @case_studies %>
+            <tr>
+              <td><%= link_to case_study.name, case_study%></td>
+              <td>
+                <% if case_study.party_type then %>
+                  Two-Party
+                <% else %>
+                  Multi-Party
+                <%  end %>
+              </td>
+              <td>
+                <% if case_study.game_type then %>
+                  Integrative
+                <% else %>
+                  Distributive
+                <%  end %>
+              </td>
+              <td>
+                <% if case_study.issue_type then %>
+                  Single-Issue
+                <% else %>
+                  Multi-Issue
+                <%  end %>
+              </td>
+              <td>
+                <% if case_study.delivery_type then %>
+                  In-Class
+                <% else %>
+                  Extended
+                <%  end %>
+              </td>
+              <td>
+                <% if case_study.eval_type then %>
+                  Offer System
+                <% else %>
+                  Scorecard System
+                <%  end %>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+
+      </div>
+    <% end %>
+
+  </div>
+
+<%#* This is the view the Facilitator gets to see %>
+
+  <div id="case_library_facilitator_view">
+
+    <div id="admin _view">
+      <% if current_user.educator %>
+
+        <table style="width:100%">
+          <tr>
+            <th id="header"><%=sortable "name"%>
+              <% if params[:sort]=="name" %>
+                <% if params[:direction]=="asc" %>
+                  <%= image_tag('/images/up_arrow.png', :style=>"width:15px;height:15px;") %>
+                <% else %>
+                  <%= image_tag('/images/down_arrow.png', :style=>"width:15px;height:15px;") %>
+                <% end %>
+              <% end %>
+            </th>
+            <th id="header"><%=sortable "party_type", "Party"%>
+              <% if params[:sort]=="party_type" %>
+                <% if params[:direction]=="asc" %>
+                  <%= image_tag('/images/up_arrow.png', :style=>"width:15px;height:15px;") %>
+                <% else %>
+                  <%= image_tag('/images/down_arrow.png', :style=>"width:15px;height:15px;") %>
+                <% end %>
+              <% end %>
+            </th>
+            <th id="header"><%=sortable "game_type", "Game"%>
+              <% if params[:sort]=="game_type" %>
+                <% if params[:direction]=="asc" %>
+                  <%= image_tag('/images/up_arrow.png', :style=>"width:15px;height:15px;") %>
+                <% else %>
+                  <%= image_tag('/images/down_arrow.png', :style=>"width:15px;height:15px;") %>
+                <% end %>
+              <% end %>
+            </th>
+            <th id="header"><%=sortable "issue_type", "Issue"%>
+              <% if params[:sort]=="issue_type" %>
+                <% if params[:direction]=="asc" %>
+                  <%= image_tag('/images/up_arrow.png', :style=>"width:15px;height:15px;") %>
+                <% else %>
+                  <%= image_tag('/images/down_arrow.png', :style=>"width:15px;height:15px;") %>
+                <% end %>
+              <% end %>
+            </th>
+            <th id="header"><%=sortable "delivery_type", "Delivery"%>
+              <% if params[:sort]=="delivery_type" %>
+                <% if params[:direction]=="asc" %>
+                  <%= image_tag('/images/up_arrow.png', :style=>"width:15px;height:15px;") %>
+                <% else %>
+                  <%= image_tag('/images/down_arrow.png', :style=>"width:15px;height:15px;") %>
+                <% end %>
+              <% end %>
+            </th>
+            <th id="header"><%=sortable "eval_type", "Evaluation"%>
+              <% if params[:sort]=="eval_type" %>
+                <% if params[:direction]=="asc" %>
+                  <%= image_tag('/images/up_arrow.png', :style=>"width:15px;height:15px;") %>
+                <% else %>
+                  <%= image_tag('/images/down_arrow.png', :style=>"width:15px;height:15px;") %>
+                <% end %>
+              <% end %>
+            </th>
+          </tr>
+          <% for case_study in @case_studies %>
+            <tr>
+              <td> <%= link_to case_study.name, case_study%> <%=image_tag("/images/bullet.png")%></td>
+              <td>
+                <% if case_study.party_type then %>
+                  Two-Party
+                <% else %>
+                  Multi-Party
+                <%  end %>
+              </td>
+              <td>
+                <% if case_study.game_type then %>
+                  Integrative
+                <% else %>
+                  Distributive
+                <%  end %>
+              </td>
+              <td>
+                <% if case_study.issue_type then %>
+                  Single-Issue
+                <% else %>
+                  Multi-Issue
+                <%  end %>
+              </td>
+              <td>
+                <% if case_study.delivery_type then %>
+                  In-Class
+                <% else %>
+                  Extended
+                <%  end %>
+              </td>
+              <td>
+                <% if case_study.eval_type then %>
+                  Offer System
+                <% else %>
+                  Scorecard System
+                <%  end %>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+
+      </div>
+    <% end %>
+
+  </div>
+
+
+</div>

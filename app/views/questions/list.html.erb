@@ -1,0 +1,31 @@
+<div class="container">
+
+  <div class="sub_container_base">
+
+
+	<p id="notice"><%= notice %></p>
+
+	<ol>
+	  <% @questions.each do |question| %>
+		<li>
+		  <b> <%= question.statement %></li>
+		</b>
+
+			<% if question.options.count > 0 %>
+		<% question.options.each do |option| %>
+		  <ul>
+			<li><%= option.name %></li>
+		  </ul>
+		<% end %>
+		  <% else %>
+		<p>(No Options Added Yet)</p>
+		  <% end %>
+
+	  <% end %>
+
+	</ol>
+   <%=link_to "Back",questionnaires_path(:sgid=>@sgid,:flag=>@flag,:qid=>@questionnaire.id) %>
+
+  </div>
+
+</div>

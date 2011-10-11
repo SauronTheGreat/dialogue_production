@@ -1,0 +1,81 @@
+<div class="container">
+  <div class="sub_container_header" style="width:85%;background-image: none;border:none;text-align: left;">
+    <h2>Briefing and Issues for <%=h @briefing.role.name %></h2>
+  </div>
+
+  <div class="sub_container_base" style="width:90%;">
+    <table style="width:100%;background-image: none;border:none;margin-top: -25px">
+      <tr style="background-image: none;border:none;">
+        <% if current_user.admin %>
+          <td style="width:10%;vertical-align: top;background-image: none;border:none;">
+            <span style="float:left;margin-right: 20px;">
+              <%= link_to image_tag("/images/delete_button.png", :size=>"35x35"), @briefing,:confirm => 'Are you sure?', :method => :delete,  :title=>"Delete" %>
+            </span><br/><br/><br/>
+          </td>
+        <% end %>
+        <td style="background-image: none;border:none;vertical-align: top;">
+          <div style="padding:20px;height:250px;overflow:auto;text-align:justify;vertical-align: top;">
+            <%=h simple_format(@briefing.briefing_note) %>
+            <br/>
+          </div>
+        </td>
+        <% if !current_user.admin and !current_user.educator %>
+          <% if @briefing.role.case_study.eval_type %>
+            <td style="background-image: none;border:none;width:20%;text-align: center;">
+            <% else %>
+            <td style="background-image: none;border:none;width:50%;text-align: center;">
+            <% end %>
+            <div style="padding:20px;height:250px;overflow:auto;text-align:justify;vertical-align: top;">
+              <center>
+                <table>
+                  <% @issues=Issue.all(:conditions=>['case_study_id=?',@briefing.role.case_study_id]) %>
+                  <% if @briefing.role.case_study.eval_type %>
+                    <tr>
+                      <th>
+                        Issues
+                      </th>
+                    </tr>
+                    <% for issue in @issues %>
+                      <tr>
+                        <td><%= issue.name %>
+                        </td>
+                      </tr>
+                    <% end %>
+
+                  <% else %>
+                    <% for issue in @issues %>
+                      <tr>
+                        <td style="background-image: none;"><strong><%=h issue.name %></strong>
+                          <br/>
+                          Weightage: <%=issue.weightage%>
+                        </td>
+                        <td>
+                          <table>
+                            <tr>
+                              <th>Options</th>
+                              <th>Payoff</th>
+                            </tr>
+                            <% @issue_options=IssueOption.all(:conditions=>['issue_id=?',issue.id]) %>
+                            <% for option in @issue_options %>
+                              <% @value=OptionValue.find(:first,:conditions=>['issue_option_id=? and role_id=?',option.id,@briefing.role_id]) %>
+                              <tr>
+                                <td><%=h option.option %></td>
+                                <td><%=h @value.value %></td>
+                              </tr>
+                            <% end %>
+                          </table>
+
+                        </td>
+                      </tr>
+                    <% end %>
+                  <% end %>
+                </table>
+              </center>
+            </div>
+          </td>
+        <% end %>
+      </tr>
+    </table>
+  </div>
+  <br/>
+</div>

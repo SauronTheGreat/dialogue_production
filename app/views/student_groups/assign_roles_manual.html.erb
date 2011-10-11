@@ -1,0 +1,68 @@
+<div class="container">
+  <div class="sub_container_header" style="background-image: none;border:none;">
+
+  </div>
+
+  <div class="sub_container_base">
+    <table style="background-image: none;border:none;">
+      <tr style="background-image: none;border:none;">
+        <td style="background-image: none;border:none;">
+
+          <table>
+            <tr>
+              <th>Game Id</th>
+              <th>Player Name</th>
+              <th>Player Role</th>
+
+            </tr>
+            <% @players.each do |player| %>
+                <% if player.role!= nil %>
+                    <tr>
+                      <td><%= h player.game.id %></td>
+                      <td><%= h player.user.first_name %> <%= h player.user.last_name %></td>
+                      <td><%= h player.role.name %></td>
+
+                    </tr>
+                <% end %>
+            <% end %>
+
+            <%= @leftover_students.count %> students left unallocated.<br/>
+
+
+            <ul>
+
+              <% (@leftover_students.count).times do |pl| %>
+                  <li>
+                    <%= h @leftover_students[pl].first_name %> <%= h @leftover_students[pl].last_name %> at
+                    <%= h @leftover_students[pl].email %>
+                  </li>
+                  <br/>
+              <% end %>
+            </ul>
+
+
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td style="background-image: none;border:none;">
+        </td>
+        <td style="background-image: none;border:none;">
+          <br/>
+        </td>
+      </tr>
+    </table>
+
+    <% if (@leftover_students.count < @rolelist.count) %>
+        <%= link_to "Home", root_path, :id=>params[:id] %>
+    <% else %>
+
+
+        <%= button_to "Next", :action => 'create_games_manual', :id=>params[:id] %>
+        <br/>
+        <br/>
+        <%= link_to "Create The rest randomly", :action => 'create_games', :id=>params[:id] %>
+
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<% title "Student Group Metric" %>
+
+<p>
+  <strong>Student Group:</strong>
+  <%=h @student_group_metric.student_group_id %>
+</p>
+<p>
+  <strong>Metric:</strong>
+  <%=h @student_group_metric.metric_id %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_student_group_metric_path(@student_group_metric) %> |
+  <%= link_to "Destroy", @student_group_metric, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", student_group_metrics_path %>
+</p>

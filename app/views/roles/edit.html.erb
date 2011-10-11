@@ -1,0 +1,18 @@
+<div id="login_box" class="splash_container" style="width:70%">
+
+<h2>Role for <%= CaseStudy.find(params[:case_study]).name %></h2>
+
+<% form_for @role do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.hidden_field :case_study_id, :value=>params[:case_study] %>
+  </p>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %>
+
+<p><%= link_to "Back to List", roles_path %></p>
+</div>

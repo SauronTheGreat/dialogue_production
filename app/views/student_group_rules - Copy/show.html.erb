@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="sub_container_header">
+  </div>
+
+  <div class="sub_container_base">
+    <p>
+      <b>Student group:</b>
+      <%=h StudentGroup.find(@student_group_rule.student_group_id).name %>
+    </p>
+
+    <p>
+      <b>Rule:</b>
+      <%=h @student_group_rule.rule_id %>
+    </p>
+
+
+    <%= link_to 'Edit', edit_student_group_rule_path(@student_group_rule) %> |
+    <%= link_to 'Back', student_group_rules_path %>
+
+  </div>
+</div>

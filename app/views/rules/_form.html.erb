@@ -1,0 +1,12 @@
+<% form_for @rule do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :case_study_id %><br />
+    <%= f.text_field :case_study_id %>
+  </p>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %>

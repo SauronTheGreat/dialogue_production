@@ -1,0 +1,9 @@
+one:
+  player_id: 1
+  issue_id: 1
+  value: MyString
+
+two:
+  player_id: 1
+  issue_id: 1
+  value: MyString

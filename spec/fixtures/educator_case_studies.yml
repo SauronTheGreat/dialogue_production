@@ -1,0 +1,11 @@
+one:
+  educator_id: 1
+  case_study_id: 1
+  educator_name: MyString
+  case_study_name: MyString
+
+two:
+  educator_id: 1
+  case_study_id: 1
+  educator_name: MyString
+  case_study_name: MyString

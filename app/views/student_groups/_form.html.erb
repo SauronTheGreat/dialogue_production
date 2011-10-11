@@ -1,0 +1,15 @@
+<% form_for @student_group do |f| %>
+  <%= f.error_messages %>
+  <% if current_user.admin %>
+    <%= f.select :facilitator_group_id, FacilitatorGroup.all.collect{|s| [s.name, s.id]} %>
+    <%= f.hidden_field :facilitator, :value=> User.find(FacilitatorGroup.find(:first, :conditions=>["user_id=?",current_user.id]).user_id).first_name %>
+  <% else %>
+    <%= f.hidden_field :facilitator_group_id, :value=>FacilitatorGroup.find(:first, :conditions=>["user_id=?",current_user.id]).id %>
+    <%= f.hidden_field :facilitator, :value=>User.find(FacilitatorGroup.find(:first, :conditions=>["user_id=?",current_user.id]).user_id).first_name %>
+  <% end %>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %>

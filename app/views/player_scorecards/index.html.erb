@@ -1,0 +1,21 @@
+<% title "Player Scorecards" %>
+
+<table>
+  <tr>
+    <th>Player</th>
+    <th>Issue</th>
+    <th>Value</th>
+  </tr>
+  <% for player_scorecard in @player_scorecards %>
+    <tr>
+      <td><%=h player_scorecard.player_id %></td>
+      <td><%=h player_scorecard.issue_id %></td>
+      <td><%=h player_scorecard.value %></td>
+      <td><%= link_to "Show", player_scorecard %></td>
+      <td><%= link_to "Edit", edit_player_scorecard_path(player_scorecard) %></td>
+      <td><%= link_to "Destroy", player_scorecard, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Player Scorecard", new_player_scorecard_path %></p>

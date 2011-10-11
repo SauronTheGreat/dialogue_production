@@ -1,0 +1,12 @@
+<% form_for @client do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :client_type %><br />
+    <%= f.select :client_type, [["K-12 School","K-12 School"],["Grad School","Grad School"],["Business School","Business School"],["Law School","Law School"],["Corporate Body","Corporate Body"],["Other","Other"]] %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %>

@@ -1,0 +1,67 @@
+<div class="container">
+  <div class="sub_container_header" style="background-image: none;border:none;">
+
+  </div>
+
+  <div class="sub_container_base">
+    <table style="background-image: none;border:none;">
+      <tr style="background-image: none;border:none;">
+        <td style="background-image: none;border:none;">
+
+
+          <%= "1 game" %><%= " created" %>.<br/><br/>
+
+
+          <table>
+            <tr>
+              <th>Game Id</th>
+              <th>Player Name</th>
+              <th>Player Role</th>
+
+            </tr>
+            <% @players.each do |player| %>
+                <% if player.role!= nil %>
+                    <tr>
+                      <td><%= h player.game.id %></td>
+                      <td><%= h player.user.first_name %> <%= h player.user.last_name %></td>
+                      <td><%= h player.role.name %></td>
+
+                    </tr>
+                <% end %>
+            <% end %>
+
+            <%= @unallocated_students.count %> students left unallocated.<br/>
+
+
+            <ul>
+
+              <% (@unallocated_students.count).times do |pl| %>
+                  <li>
+                    <%= h @unallocated_students[pl].user.first_name %> <%= h @unallocated_students[pl].user.last_name %> at
+                    <%= h @unallocated_students[pl].user.email %>
+                  </li>
+                  <br/>
+              <% end %>
+            </ul>
+
+
+          </table>
+        </td>
+      </tr>
+      <tr>
+        <td style="background-image: none;border:none;">
+        </td>
+        <td style="background-image: none;border:none;">
+          <br/>
+        </td>
+      </tr>
+    </table>
+
+
+
+
+    <%= button_to "Home", root_path %>
+
+
+  </div>
+</div>

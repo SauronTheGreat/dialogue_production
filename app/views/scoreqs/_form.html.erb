@@ -1,0 +1,16 @@
+<% form_for @scoreq do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :player_id %><br />
+    <%= f.text_field :player_id %>
+  </p>
+  <p>
+    <%= f.label :student_group_metric_id %><br />
+    <%= f.text_field :student_group_metric_id %>
+  </p>
+  <p>
+    <%= f.label :value %><br />
+    <%= f.text_field :value %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %>

@@ -1,0 +1,15 @@
+one:
+  name: MyString
+  summary: MyText
+  party_type: false
+  game_type: false
+  issue_type: false
+  delivery_type: false
+
+two:
+  name: MyString
+  summary: MyText
+  party_type: false
+  game_type: false
+  issue_type: false
+  delivery_type: false

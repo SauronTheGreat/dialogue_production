@@ -1,0 +1,20 @@
+<div id="login_box" class="splash_container">
+
+  <h2>Choose exercise for <%=@student_group.name%></h2>
+
+  <% form_for @student_group do |f| %>
+    <%= f.error_messages %>
+    <p>
+      <%= f.label "Exercise" %>:
+    <p>
+    </p>
+    <%= f.select :case_study_id, CaseStudy.all.collect{|s| [s.name,s.id]} %>
+  </p>
+  <p><%= f.submit %></p>
+
+  <i>If you change the Exercise after creating the negotiation sets, please remember to re-create the sets to apply the changes.</i>
+
+<% end %>
+
+<p><%= link_to "Cancel", @student_group %></p>
+</div>

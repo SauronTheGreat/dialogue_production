@@ -1,0 +1,19 @@
+<div id="login_box" class="splash_container">
+
+  <h2>Excel Upload of Negotiation Sets for <%= @student_group.name.titleize %></h2>
+  <table style="width: 100%">
+    <tr>
+      <th>1.  <%= link_to "Download the pre-populated file", download_data_path %></th>
+    </tr>
+    <tr>
+      <td>2. Fill in the roles in Excel</td>
+    </tr>
+    <tr>
+      <th>
+        3. <%= link_to "Import the completed file", :controller => :imports, :action => 'new', :sgid=>params[:id] %>
+      </th>
+    </tr>
+  </table>
+  <br/>
+  <br/>
+</div>

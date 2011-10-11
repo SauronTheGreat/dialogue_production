@@ -1,0 +1,29 @@
+<% form_for @question do |f| %>
+    <% if @question.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@question.errors.count, "error") %> prohibited this question from being saved:</h2>
+
+          <ul>
+            <% @question.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+      <%= f.label "Question Type" %>
+      <%= f.select "type_id", Type.all.collect { |t| [t.name, t.id] } %>
+      <br/>
+      <br/>
+
+      <%= f.label "Question" %>
+      <%= f.text_field :statement %>
+      <br/>
+      <br/>
+      <%= f.hidden_field :questionnaire_id, :value=>@questionnaire.id %>
+
+      <%= f.hidden_field :answer, :value=>0 %>
+
+      <%= f.submit %>
+    <br/>
+<% end %>

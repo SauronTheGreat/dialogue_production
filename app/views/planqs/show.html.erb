@@ -1,0 +1,39 @@
+<h2>Planning Document</h2>
+<%=button_to "Edit it", new_planq_path(:active_game=>@active_game.id), :style=>"width:100px;height:35px;font-size: 14px;"%>
+<br/>
+
+
+  <%
+  @pbasic = Planq.all(:conditions=>['player_id=? and meyou=?',@player.id, "general"])
+    @pmine = Planq.all(:conditions=>['player_id=? and meyou=?',@player.id, "me"])
+    @pyours = Planq.all(:conditions=>['player_id=? and meyou=?',@player.id, "you"])
+  %>
+  
+  <table>
+    <% @pbasic.each do |planq| %>
+      <tr>
+        <td><%= planq.name %></td>
+        <td><%= planq.value %></td>
+      </tr>
+    <% end %>
+  </table>
+<br/>
+
+<div style="height:200px;overflow-y:scroll;" >
+  <table>
+    <tr>
+      <th>How important are the following issues?</th>
+      <th>To you</th>
+      <th>To the other party</th>
+    </tr>
+<% @planqcount = @pmine.count %>
+<% @planqcount.times do |n| %>
+      <tr>
+        <td><%= @pmine[n].name %></td>
+        <td><%= @pmine[n].value %></td>
+        <td><%= @pyours[n].value %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+<br/>

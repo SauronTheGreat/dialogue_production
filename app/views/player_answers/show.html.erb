@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Player:</b>
+  <%= @player_answer.player_id %>
+</p>
+
+<p>
+  <b>Question:</b>
+  <%= @player_answer.question_id %>
+</p>
+
+<p>
+  <b>Answer:</b>
+  <%= @player_answer.answer %>
+</p>
+
+<p>
+  <b>Answer after self scoring:</b>
+  <%= @player_answer.answer_after_self_scoring %>
+</p>
+
+
+<%= link_to 'Edit', edit_player_answer_path(@player_answer) %> |
+<%= link_to 'Back', player_answers_path %>

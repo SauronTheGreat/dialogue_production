@@ -1,0 +1,67 @@
+<div class="container">
+
+  <div class="sub_container_header" style="background-image: none;border:none;">
+    <h2>Issues
+      <% if !@case_study.eval_type %>
+          and Payoffs
+      <% end %>
+      in <%= h @case_study.name %></h2>
+      <span style="float:right;text-align:center;margin-top:-60px;font-size:12px;color:black;text-decoration: none;">
+        <%= link_to image_tag("/images/issues.png", :size=>"35x35"), new_issue_path(:case_study=>@case_study.id), :title=>"New Issue" %>
+        <br/>Add Issue
+      </span>
+  </div>
+
+  <div class="sub_container_base">
+    <% for issue in @issues %>
+        <% @issue_options= IssueOption.all(:conditions=>['issue_id=?', issue.id]) %>
+        <table style="width:100%;background-image: none;border:none;">
+          <tr style="background-image: none;border:3px solid white;">
+            <th style="width:33%;vertical-align: middle; padding: 10px;text-align: center">
+              <% if !@case_study.eval_type %>
+                  <span style="font-weight:bolder"><%= link_to issue.name.titleize, new_issue_option_path(:active_issue=>issue.id) %></span><br/>
+              <% else %>
+                  <span style="font-weight:bolder"><%= h issue.name.titleize %></span><br/>
+              <% end %>
+              <% if !@case_study.eval_type %>
+                  <span style="font-weight:normal;font-size: small">Weightage: <%= h issue.weightage %></span>
+              <% end %>
+              <br/>
+              <br/>
+              <%= link_to image_tag("/images/delete_icon.png", :size => "25x25"), issue, :confirm => 'Are you sure?', :method => :delete, :title=>"Delete" %>
+            </th>
+            <% if !@case_study.eval_type %>
+                <td style="vertical-align: top;background-image: none;border:none;">
+                  <table style="width:100%;background-image: none;border:none;">
+                    <tr style="background-image: none;border:none;">
+                      <th style="text-align: center;">Option</th>
+                      <% for role in @roles %>
+                          <th style="text-align: center;"><%= role.name %></th>
+                      <% end %>
+                    </tr>
+                    <% for issue_option in @issue_options %>
+                        <tr style="background-image: none;border:none;">
+                          <td style="text-align: center">
+                            <%= h issue_option.option %>
+                          </td>
+                          <% for role in @roles %>
+                              <td style="background-image: none;text-align: center">
+
+                                <% if  option_value=OptionValue.first(:conditions=>['issue_option_id=? and role_id=?', issue_option.id, role.id]) %>
+                                    <%= option_value.value %>
+                                <% end %>
+                              </td>
+                          <% end %>
+                        </tr>
+                    <% end %>
+                  </table>
+                </td>
+            <% end %>
+          </tr>
+        </table>
+
+    <% end %>
+  </div>
+  <%= link_to "Back to Exercise", @case_study %>
+
+</div>

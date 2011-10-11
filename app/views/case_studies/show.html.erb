@@ -1,0 +1,68 @@
+<div class="container">
+
+  <div class="sub_container_header" style="background-image: none;border:none;">
+    <h2><%= h @case_study.name %></h2>
+  </div>
+
+  <div class="sub_container_base" style="margin-top:-15px;">
+    <table style="background-image: none;border:none;width:100%">
+      <tr style="background-image: none;border:none;">
+        <td style="background-image: none;border:none;width:150px;">
+          <strong>Simulation Type: </strong><br/><br/>
+          <% if @case_study.party_type then %>
+              Two-Party
+          <% else %>
+              Multi-Party
+          <% end %> <br/>
+          <% if @case_study.game_type then %>
+              Integrative
+          <% else %>
+              Distributive
+          <% end %> <br/>
+          <% if @case_study.issue_type then %>
+              Single-Issue
+          <% else %>
+              Multi-Issue
+          <% end %> <br/>
+          <% if @case_study.delivery_type then %>
+              In-Class
+          <% else %>
+              Extended
+          <% end %> <br/>
+          <% if @case_study.eval_type then %>
+              Offer System
+          <% else %>
+              Scorecard System
+          <% end %>
+        </td>
+        <td style="overflow:auto;padding:20px; background-image: url('/images/paper_texture.jpg');">
+          <%= h simple_format(@case_study.summary) %>
+        </td>
+        <td style="background-image: none;border:none;">
+            <span style="float:left;margin-right: 20px;">
+              <%= link_to image_tag("/images/delete_icon.png", :size=>"35x35"), @case_study, :confirm => 'Are you sure?', :method => :delete, :title=>"Delete" %>
+              <br/>
+              <%= link_to image_tag("/images/edit.png", :size=>"30x30"), edit_case_study_path(@case_study), :title=>"Edit" %>
+            </span><br/>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="3" style="background-image:none;border:none;">
+          <br/>
+          <table style="border: none;background: none;margin: auto;">
+            <tr style="border: none;background: none;">
+              <td style="border: none;background: none;">Click on these for details on the exercise:</td>
+              <td style="border: none;background: none;"><%= link_to image_tag("/images/issues.png", :size=>"35x35"), issues_path(:case_study=>@case_study.id), :title=>"Issues in this Exercise" %>
+                <br/>Issues
+              </td>
+              <td style="border: none;background: none;"><%= link_to image_tag("/images/roles.png", :size=>"35x35"), roles_path(:case_study=>@case_study.id), :title=>"Roles in this Exercise" %>
+                <br/>Roles
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+</div>

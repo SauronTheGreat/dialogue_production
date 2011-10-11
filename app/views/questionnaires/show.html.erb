@@ -1,0 +1,75 @@
+<div class="container" style="height:450px;">
+
+  <div class="sub_container_base" style="height:350px;width: 90%">
+    <p id="notice"><%= notice %></p>
+
+    <span style="font-weight: bold;font-size: 24px;">Survey Name: <%= @questionnaire.name %></span><br/>
+    <span style="float:right;text-align:center;margin-top:-30px;font-size:12px;color:black;text-decoration: none;">
+        <%= link_to image_tag("/images/question.png", :size=>"35x35"), new_question_path(:qid=>@questionnaire.id), :title=>"Add Question" %>
+      <br/>Add Question
+      </span>
+    Created by <%= @user.first_name+" "+@user.last_name %>
+    <br/><br/>
+    <table style="width:100%;background: none;border: none;">
+      <tr>
+        <td style="background: none;border: none;">
+          <div style="height:250px;overflow: auto;">
+            <table style="width:100%;">
+              <tr>
+                <th>S.No.</th>
+                <th>Question</th>
+              </tr>
+              <% @questions.each_with_index do |question, index| %>
+                  <tr>
+                    <td><%= index+1 %></td>
+                    <td width="95%" style="background-color: white;background-image: none;">
+                      <%= question.statement %>
+                          <br/>
+                          <div style="font-size: smaller;margin-left: 20px;">
+                            <% question.options.each_with_index do |option, option_index| %>
+                                <%= option_index+1 %>. <%= option.name %>
+                                <br/>
+                            <% end %>
+                          </div>
+                    </td>
+                    <td>
+                      <%= link_to image_tag("/images/delete_icon.png", :size => "35x35"), question, :confirm => 'Are you sure?', :method => :delete %>
+                    </td>
+                  </tr>
+              <% end %>
+            </table>
+          </div>
+        </td>
+        <!--<td style="border: none;">-->
+        <!--
+        <% form_for @new_question do |f| %>-->
+
+            <!--<table style="border: none;width:100%;">-->
+            <!--<tr>-->
+            <!--<th><%= f.label "Question Type" %></th>-->
+            <!--<td style="background-color: white;background-image: none;"><%= f.select "type_id", Type.all.collect { |t| [t.name, t.id] } %></td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+            <!--<th><%= f.label "Question" %></th>-->
+            <!--<td style="background-color: white;background-image: none;">-->
+            <!--<%= f.text_field :statement %>-->
+            <!--<%= f.hidden_field :questionnaire_id, :value=>@questionnaire.id %>-->
+            <!--<%= f.hidden_field :answer, :value=>0 %>-->
+            <!--</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+            <!--<td colspan="2" style="border: none;background: none;text-align: center;"><%= f.submit "Add a Question" %></td>-->
+            <!--</tr>-->
+            <!--</table>-->
+            <!--
+        <% end %>-->
+
+        <!--</td>-->
+      </tr>
+
+    </table>
+  </div>
+
+  <br/>
+</div>
+

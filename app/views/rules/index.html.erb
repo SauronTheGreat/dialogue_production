@@ -1,0 +1,37 @@
+<div class="container">
+
+  <div class="sub_container_header" style="width:70%">
+
+    <h3 style="width: 50%">Rules</h3>
+<span style="float: right;margin-top: -8%;" > <% link_to  new_rule_admin_path do %>
+  <%= image_tag "rules.png" ,:size => '75x75' %>
+      <% end %>
+      </span>
+
+  </div>
+
+
+  <div class="sub_container_base">
+
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+
+      <% @rules.each do |rule| %>
+        <tr>
+          <td><%=h rule.name %></td>
+          <td><%=h rule.description %></td>
+          <td><%= link_to 'Show', rule %></td>
+          <td><%= link_to 'Edit', edit_rule_path(rule) %></td>
+          <td><%= link_to 'Destroy', rule, :confirm => 'Are you sure?', :method => :delete %></td>
+        </tr>
+      <% end %>
+    </table>
+
+    <br />
+
+
+  </div>
+</div>

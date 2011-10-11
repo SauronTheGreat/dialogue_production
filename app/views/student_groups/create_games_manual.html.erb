@@ -1,0 +1,73 @@
+<div class="container">
+  <div class="sub_container_header" style="background-image: none;border:none;">
+    <h3>Group: <%= h @student_group.name.titleize %></h3>
+
+  </div>
+  <% x=Array.new %>
+  <% @rolelist.each { |r| x <<r.id } %>
+
+
+  <% form_tag :action => 'assign_roles_manual', :id=>params[:id] do %>
+      <div class="sub_container_base">
+
+        <table style="background-image: none;border:none;">
+          <tr style="background-image: none;border:none;">
+            <td style="background-image: none;border:none;">
+              <% if params[:msg].to_i == 1 %>
+                  <h2>ERROR : You have assigned the same student for different roles !!Please try again..</h2>
+
+              <% else %>
+                  <% if @gamecount and @gamecount != 0 %>
+                      <%= @gamecount %> games created.<br/><br/>
+                  <% end %>
+              <% end %>
+              <table>
+                <tr>
+
+                  <th>Player Role</th>
+                  <th>Player Name</th>
+
+                </tr>
+                <% j=0 %>
+                <% @rolelist.each do |role| %>
+                    <tr>
+
+                      <% j= role.id %>
+
+                      <td><%= role.name %></td>
+
+
+
+
+
+                      <% s="player"+j.to_s %>
+
+                      <td> <%= select_tag s, options_for_select(@player_info) %></td>
+
+
+                    </tr>
+                <% end %>
+                <tr>
+
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <tr>
+            <td colspan="2" style="background-image: none;border:none;">
+              <%= submit_tag "Save" %>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" style="background-image: none;border:none;">
+              <br/>
+              <%= link_to "Click to Create the rest randomly", :action => 'create_games', :id=>params[:id] %>
+            </td>
+          </tr>
+        </table>
+
+
+      </div>
+      </div>
+  <% end %>

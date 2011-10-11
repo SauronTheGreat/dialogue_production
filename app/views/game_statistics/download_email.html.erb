@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title><%= h(yield(:title) || "Dialogue") %></title>
+  <%= stylesheet_link_tag 'application' %>
+  <style type="text/css">
+      div.container {
+          width: 75%;
+          margin: 0 auto;
+          background-color: #FFF;
+          padding: 20px 40px;
+          border: solid 1px black;
+          border-radius: 20px;
+          margin-top: 20px;
+      }
+  </style>
+</head>
+
+<body style="background-color:#333333;">
+
+<div id="top_panel" class="container">
+  <table style="width:100%;border:none;background-image: none;">
+    <tr style="border:none;background-image: none;">
+      <td style="width:250px;border:none;background-image: none;">
+        <span style="font-size:48px;font-weight: bolder">Dialogue</span><br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The Negotiation Platform&nbsp;&nbsp;&nbsp;
+      </td>
+      <td style="float:right;">
+        Game Id : <%= @game.id %>
+        <br/>
+        Educator Name : <%=h User.find(@game.student_group.facilitator_group.user_id).first_name %> <%= User.find(@game.student_group.facilitator_group.user_id).last_name %>
+        <br/>
+        Student Group : <%=h @game.student_group.name %>
+        <br/>
+        Player List :
+        <% @players.each_with_index do |player, index| %>
+            <%= player.name %> (<%=h player.user.first_name %> <%=h player.user.last_name %>)
+            <% unless index==(@players.count-1) %>,
+            <% end %>
+        <% end %>
+      </td>
+    </tr>
+  </table>
+</div>
+<br/>
+
+<div id="bottom_panel" class="container">
+  <% i=0 %>
+  <% s="" %>
+  <% @messages.each do |message| %>
+
+      <b>From:</b> <%= h Player.find(message.author_id).role.name %>     <br>
+
+      <b>To: </b><%= h @recipients[i][0] %>   <br>
+      <b>Subject: </b><%= h message.subject %>  <br>
+      <b>Date: </b><%= h message.created_at %>  <br>
+      <br/>
+      <%= h simple_format(message.body) %>    <br>
+      <% i=i+1 %>
+      <hr/>
+      <br>
+
+  <% end %>
+</div>
+
+</body>
+</html>

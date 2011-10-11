@@ -1,0 +1,16 @@
+<% form_for @player_scorecard do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :player_id %><br />
+    <%= f.text_field :player_id %>
+  </p>
+  <p>
+    <%= f.label :issue_id %><br />
+    <%= f.text_field :issue_id %>
+  </p>
+  <p>
+    <%= f.label :value %><br />
+    <%= f.text_field :value %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %>

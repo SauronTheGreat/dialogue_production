@@ -1,0 +1,43 @@
+<div id="login_box" class="splash_container">
+  <h2>Register User</h2>
+
+  <% form_for(@user) do |f| %>
+
+  <%#= render :partial => 'user_fields', :locals => { :f => f } %>
+
+    <p><%= f.label :facilitator_group %>:
+      <%= f.select :facilitator_group_id, FacilitatorGroup.find(:all).collect{|s| [s.name,s.id]}, :include_blank=>true %></p>
+
+    <p><%= f.label :first_name %>
+      <%= f.text_field :first_name %></p>
+
+    <p><%= f.label :last_name %>
+      <%= f.text_field :last_name %></p>
+
+    <p><%= f.label :identifier %>
+      <%= f.text_field :identifier %></p>
+
+    <p><%= f.label :username %>
+      <%= f.text_field :username %></p>
+
+    <p><%= f.label :email %><br/>
+      <%= f.text_field :email %></p>
+
+    <p><%= f.label :password %><br/>
+      <%= f.password_field :password %></p>
+
+    <p><%= f.label :password_confirmation %><br/>
+      <%= f.password_field :password_confirmation %></p>
+
+    <p><%= f.label 'Is Admin?' %>
+      <%= f.check_box :admin %></p>
+
+    <p><%= f.label 'Is Educator?' %>
+      <%= f.check_box :educator %></p>
+
+    <p><%= f.submit "Register" %></p>
+    <span style="float:right;"><%= link_to "Back", users_path %></span>
+    <br/>
+
+  <% end %>
+</div>

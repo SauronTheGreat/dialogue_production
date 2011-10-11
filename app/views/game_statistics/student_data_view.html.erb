@@ -1,0 +1,135 @@
+<% if @active_game.case_study.eval_type %>
+    <table style="border:none;">
+      <h2>Offer Chart</h2>
+      <tr style="border:none;">
+        <td style="border:none;width:50%">
+          <% if Offer.find(:last, :conditions=>['game_id=?', @active_game.id], :order=>'created_at ASC') %>
+              <div id="charter"><%=
+                  ambling_chart(:line, :data_file => url_for(:action => 'charting', :active_game=>@active_game.id, :escape => false),
+                                :id => "charter", :width => '100%', :height => 280,
+                                :chart_settings => Ambling::Line::Settings.new({
+                                                                                       :plot_area => {
+                                                                                               :margins => {:left => 60, :top => 40, :right => 100, :bottom => 40}
+                                                                                       },
+                                                                                       :legend => {
+                                                                                               :enabled => true, :x => "70%", :y => 70, :width => 100, :text_color => '#000',
+                                                                                               :max_columns => 1, :spacing => 2, :text_size => 10,
+                                                                                               :key => {:size => 10},
+                                                                                       },
+                                                                               }).to_xml) do
+                      content_tag('p', "To see this page properly, you need to upgrade your Flash Player")
+                  end
+              %>
+              </div>
+          <% end %>
+        </td>
+        <td style="border:none;width:50%;">
+          <table>
+            <tr>
+              <th>Agreement Status</th>
+              <td>
+                <% if @ag_status=GameData.find(:first, :conditions=>['game_id=? and data_of =? and data_is=?', @active_game.id, "Game", "Agreement Status"]) %>
+                    <%= @ag_status.value %>
+                <% else %>
+                    No Agreement
+                <% end %>
+              </td>
+            </tr>
+            <tr>
+              <th>Agreement Value</th>
+              <td>
+                <% if @ag_value=GameData.find(:first, :conditions=>['game_id=? and data_of =? and data_is=?', @active_game.id, "Game", "Agreement Value"]) %>
+                    <%= @ag_value.value %>
+                <% else %>
+                    No Agreement
+                <% end %>
+              </td>
+            </tr>
+            <% @all_players=Player.all(:conditions=>['game_id=?', @active_game.id]) %>
+            <% @all_players.each do |player| %>
+                <tr>
+                  <th>Opening Offer by <%= @role=player.role.name %></th>
+                  <td>
+                    <% if @op_offer=GameData.find(:first, :conditions=>['game_id=? and data_of =? and data_is=?', @active_game.id, @role, "Opening Offer"]) %>
+                        <%= @op_offer.value %>
+                    <% else %>
+                        No Agreement
+                    <% end %>
+                  </td>
+                </tr>
+            <% end %>
+
+            <% @all_issues=Issue.all(:conditions=>['case_study_id=? and flag=?', @active_game.case_study_id, "Ancillary Binary Type Issue"]) %>
+            <% @all_issues.each do |issue| %>
+                <tr>
+                  <th><%= issue.name %> conceded to</th>
+                  <td><%= PlayerScorecard.first(:conditions=>['player_id=? and issue_id=?', @player.id, issue.id]).value %></td>
+                </tr>
+            <% end %>
+          </table>
+        </td>
+      </tr>
+    </table>
+<% else %>
+    <% @issues=Issue.all(:conditions=>['case_study_id=?', @active_game.case_study_id]) %>
+
+    <table>
+      <tr>
+        <th>
+          <% if !@active_game.status %>
+              <div style="font-size: 18px;font-weight: bold; text-align:center">
+                <strong>Total Score:</strong> <br/>
+                <%= GameData.find(:first, :conditions=>['game_id=? and data_of =? and data_is=?', @active_game.id, @player.role.name, "Total Score"]).value %>
+              </div>
+          <% end %>
+        </th>
+        <td>
+          <div style="height:400px;overflow:auto;">
+            <table>
+              <tr>
+                <th>Issue</th>
+                <th>Options</th>
+              </tr>
+              <% for issue in @issues %>
+                  <tr>
+                    <td style="background-image: none;"><strong><%= h issue.name %></strong>
+                      <br/>
+                      Weightage: <%= issue.weightage %>
+                    </td>
+                    <td>
+                      <table>
+                        <tr>
+                          <th>Options</th>
+                          <th>Payoff</th>
+                        </tr>
+                        <% @issue_options=IssueOption.all(:conditions=>['issue_id=?', issue.id]) %>
+                        <% for option in @issue_options %>
+                            <% @value=OptionValue.find(:first, :conditions=>['issue_option_id=? and role_id=?', option.id, @player.role_id]) %>
+                            <tr>
+                              <% if @active_game.status %>
+                                  <td><%= h option.option %></td>
+                                  <td><%= h @value.value %></td>
+                              <% else %>
+                                  <% @player_scorecard=PlayerScorecard.first(:conditions=>['player_id=? and issue_id=?', @player.id, issue.id]) %>
+                                  <% if  option.id==@player_scorecard.issue_option_id %>
+                                      <td style="background-image: url('/images/blue_back.jpg');color:white;font-weight: bold"><%= h option.option %></td>
+                                      <td style="background-image: url('/images/blue_back.jpg');color:white;font-weight: bold"><%= h @value.value %></td>
+                                  <% else %>
+                                      <td><%= h option.option %></td>
+                                      <td><%= h @value.value %></td>
+                                  <% end %>
+                              <% end %>
+                            </tr>
+                        <% end %>
+                      </table>
+
+                    </td>
+                  </tr>
+              <% end %>
+            </table>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+<% end %>

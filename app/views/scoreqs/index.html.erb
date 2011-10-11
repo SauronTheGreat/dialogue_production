@@ -1,0 +1,21 @@
+<% title "Scoreqs" %>
+
+<table>
+  <tr>
+    <th>Player</th>
+    <th>Student Group Metric</th>
+    <th>Value</th>
+  </tr>
+  <% for scoreq in @scoreqs %>
+    <tr>
+      <td><%=h scoreq.player_id %></td>
+      <td><%=h scoreq.student_group_metric_id %></td>
+      <td><%=h scoreq.value %></td>
+      <td><%= link_to "Show", scoreq %></td>
+      <td><%= link_to "Edit", edit_scoreq_path(scoreq) %></td>
+      <td><%= link_to "Destroy", scoreq, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Scoreq", new_scoreq_path %></p>

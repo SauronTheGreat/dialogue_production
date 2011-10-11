@@ -1,0 +1,44 @@
+<% content_for :head_banner do %>
+    <img src="/images/isb_logo.jpg" alt="background" style="float:right;margin-top:5px;width:162px;height:61px"/>
+    <span style="font-size:48px;font-weight: bolder">Dialogue</span><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The Negotiation Platform
+<% end %>
+
+<div id="login_box" class="splash_container" style="width:510px">
+  <table style="border:none;">
+    <tr>
+      <td colspan="2" style="text-align: center">
+        <% flash.each do |name, msg| %>
+            <%= content_tag :div, msg, :id => "flash_#{name}", :style=>"color:black;padding:5px;" %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td style="border:none;background-image:none;">
+        <h2>Sign in</h2>
+        <% form_for resource_name, resource, :url => session_path(resource_name) do |f| -%>
+            <p><%= f.label :username %><br/>
+              <%= f.text_field :username %></p>
+
+            <p><%= f.label :password %><br/>
+              <%= f.password_field :password %></p>
+
+            <% if devise_mapping.rememberable? -%>
+                <p><%= f.check_box :remember_me %> <%= f.label :remember_me %></p>
+            <% end -%>
+
+            <p><%= f.submit "Sign in" %></p>
+        <% end -%>
+        <p style="float:right"><%= link_to "Forgot Password", "/users/password/new" %>
+        </p>
+      </td>
+      <td style="border:none;background-image:none;">
+        <div id="sign_in_info" style=" border-radius: 20px;background-image:url('/images/back-texture.jpg'); margin-left:40px;margin-top: 20px;margin-bottom: 20px;width:200px; padding:20px;height:300px;color:white; font-size: 14px; text-align:center;">
+          <img src="../images/dialogue_icon.png" alt="dialogue_icon" style="width:200px;height:200px;"/><br/>
+          Dialogue is a simulation platform designed to explain the subtleties of negotiating over a virtual medium like
+          email. <br/>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>

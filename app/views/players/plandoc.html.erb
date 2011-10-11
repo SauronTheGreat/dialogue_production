@@ -1,0 +1,15 @@
+<table>
+  <tr>
+    <th>How important to you are the following issues?</th>
+    <td style="text-align:center">Not at all</td>
+    <td style="text-align:center">Slightly</td>
+    <td style="text-align:center">Moderately</td>
+    <td style="text-align:center">Much</td>
+    <td style="text-align:center">Very Much</td>
+  </tr>
+  <% @issues.each do |issue| %>
+    <tr>
+      <td><%= issue.name %></td>
+    </tr>
+  <% end %>
+</table>

@@ -1,0 +1,12 @@
+<% form_for @student_group_user do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :student_group_id %><br />
+    <%= f.text_field :student_group_id %>
+  </p>
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %>

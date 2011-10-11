@@ -1,0 +1,38 @@
+<div class="container">
+
+  <div class="sub_container_header" style="background-image: none;border:none;">
+    <h2>Student Groups</h2>
+    <span style="float:right;text-align:center;margin-top:-60px;"><a href="/student_groups/new" style="font-size:12px;color:black;text-decoration: none;"> <img src="images/users-icon.png" style="width:35px;height:35px;"/><br/>Add Group</a></span>
+  </div>
+
+  <div class="sub_container_base">
+
+    <table>
+      <tr>
+        <% if current_user.admin %>
+          <th style="width:35%"><strong>Client</strong></th>
+          <th style="width:35%"><strong>Group</strong></th>
+          <th style="width:15%"><strong>Facilitator Group</strong></th>
+          <th style="width:25%"><strong>Educator</strong></th>
+        <% end %>
+      </tr>
+      <% for student_group in @student_groups %>
+        <tr>
+          <% if current_user.admin %>
+            <td style="width:35%"><%=h student_group.facilitator_group.client.name %></td>
+          <% end %>
+          <th style="width:35%"><%= link_to student_group.name.titleize, student_group %> <%=image_tag("/images/bullet.png")%></th>
+          <% if current_user.admin %>
+            <td style="width:15%"><%=h student_group.facilitator_group.name %></td>
+          <% end %>
+          <% if current_user.admin %>
+            <th style="width:25%"><%=h student_group.facilitator%></th>
+          <% end %>
+          <td style="width:10%">
+            <%= link_to "Destroy", student_group, :confirm => 'Are you sure?', :method => :delete %></td>
+        </tr>
+      <% end %>
+    </table>
+
+  </div>
+</div>

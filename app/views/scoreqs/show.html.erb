@@ -1,0 +1,45 @@
+<style>
+  table{
+    border: solid black 2px;
+    border-collapse: collapse;
+    padding: 2px;
+}
+td {
+    background-image: url('/images/blue_back_td.jpg');
+    border: solid black 2px;
+    text-align: left;
+    padding: 5px;
+}
+th {
+    background-image: url('/images/back-texture.jpg');
+    /* for IE */
+    /*    filter:alpha(opacity=20);*/
+    /* CSS3 standard */
+    /*    opacity:0.2;*/
+    color:white;
+    border: solid black 2px;
+    text-align: left;
+    font-weight: bold;
+    padding: 5px;
+}
+
+</style>
+
+<h2>In Game Survey</h2>
+Filled by <%= @player.name %> pertaining to a mail by <%= @current_scoreq.message.author.name %>
+<br/>
+<br/>
+
+
+<div style="height:200px;overflow-y:auto;" >
+  <table>
+    <% @scoreqs.each do |scoreq| %>
+      <tr>
+        <th><%= scoreq.student_group_metric.name %></th>
+        <td style="background: none;"><%= scoreq.value %></td>
+      </tr>
+    <% end %>
+  </table>
+  <br/>
+</div>
+<br/>

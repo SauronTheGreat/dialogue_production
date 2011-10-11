@@ -1,0 +1,40 @@
+<div class="container">
+
+  <div class="sub_container_header" style="text-align: center">
+    <h2>List of your Active Negotiations</h2>
+  </div>
+
+  <div class="sub_container_base">
+    <% @allgames=Game.all(:conditions=>['status=?', true]).map { |i| i.id } %>
+    <% @allplayers=Player.all(:conditions=>["user_id=? and game_id IN(?)", current_user.id, @allgames]) %>
+    <% if !@allplayers.blank? %>
+        <table>
+          <tr>
+            <th style="border:solid black 1px;width:20%">Negotiation Id</th>
+            <th style="border:solid black 1px;width:40%">Exercise</th>
+            <th style="border:solid black 1px;width:20%">Role</th>
+            <th></th>
+          </tr>
+          <% @allplayers.each do |player| %>
+              <tr>
+                <td style="background-image: none;border:solid black 1px;width:20%"><%= h @gameid=player.game_id %></td>
+                <td style="background-image: none;border:solid black 1px;width:40%"><%= h CaseStudy.find(Game.find(@gameid).case_study_id).name %></td>
+                <td style="background-image: none;border:solid black 1px;width:20%"><%= h Role.find(player.role_id).name %></td>
+                <% @game=Game.find(@gameid) %>
+                <% @student_group=StudentGroup.find(@game.student_group_id) %>
+                <% @student_routing= StudentRouting.find_by_player_id(player.id) %>
+                <% if !@student_group.pre_questionnaire_id.nil? %>
+                    <% @questionnaire=Questionnaire.find(@student_group.pre_questionnaire_id) %>
+                <% end %>
+                <th style="width:5%;text-align: center"><%= link_to image_tag("/images/choice_icon.png", :border=>0, :style=>'width:25px;height:25px;'), :controller=>:welcome, :action=>'index', :active_game=>@game.id %>
+              </tr>
+          <% end %>
+        </table>
+    <% else %>
+        <% @fac=User.find(FacilitatorGroup.find(User.find(current_user.id).facilitator_group_id).user_id) %>
+        <center><h2>You have not been allocated your game.<br/> Please contact
+          Prof. <%= h @fac.first_name %> <%= h @fac.last_name %> for your allocation.</h2></center>
+    <% end %>
+
+  </div>
+</div>

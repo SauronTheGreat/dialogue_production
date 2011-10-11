@@ -1,0 +1,20 @@
+<div id="login_box" class="splash_container">
+
+  <h2>Choose Pre Exercise Survey for <%=@student_group.name.titleize%></h2>
+
+  <% form_for @student_group do |f| %>
+    <%= f.error_messages %>
+    <p>
+      <%= f.label "Survey" %>:
+    <p>
+    </p>
+    <%= f.select :pre_questionnaire_id, Questionnaire.find_all_by_user_id(current_user.id).collect{|s| [s.name,s.id]}, :include_blank=>true %>
+  </p>
+  <p><%= f.submit %></p>
+
+  <i>If you can't find the survey you are looking for, please go to the Survey Manager to create or modify a survey.</i>
+
+<% end %>
+
+<p><%= link_to "Cancel", @student_group %></p>
+</div>

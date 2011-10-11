@@ -1,0 +1,19 @@
+<% title "Metrics" %>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+  </tr>
+  <% for metric in @metrics %>
+    <tr>
+      <td><%=h metric.name %></td>
+      <td><%=h metric.description %></td>
+      <td><%= link_to "Show", metric %></td>
+      <td><%= link_to "Edit", edit_metric_path(metric) %></td>
+      <td><%= link_to "Destroy", metric, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Metric", new_metric_path %></p>

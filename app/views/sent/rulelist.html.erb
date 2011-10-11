@@ -1,0 +1,12 @@
+<h2>Rules for the Negotiation</h2>
+<div style="padding:20px;overflow:auto;height:200px;width:550px;"
+     <ul>
+         <% @allrules.each do |rule|%>
+      <li>
+        <strong><%=rule.name %>:</strong>
+        <%=rule.description %>
+      </li>
+      <br/>
+    <% end %>
+  </ul>
+</div>

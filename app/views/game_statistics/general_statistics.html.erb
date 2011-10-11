@@ -1,0 +1,46 @@
+<center><h2>Displaying data for Student Group <%= @active_game.student_group.name %></h2></center>
+
+<div class="container" style="border: none">
+  <div class="sub_container_base" style="border: none">
+    <table>
+      <tr>
+        <th>Type</th>
+        <th>Minimum</th>
+        <th>Maximum</th>
+        <th>Average</th>
+
+      </tr>
+      <% if @scorelist > 0 %>
+          <tr>
+            <td>Scores</td>
+            <td><%= @min_score %></td>
+            <td><%= @max_score %></td>
+            <td><%= @avg_score %></td>
+          </tr>
+
+      <% else %>
+
+          <tr>
+            <td>Agreement Value</td>
+            <td><%= @min_agreement_value %></td>
+            <td><%= @max_agreement_value %></td>
+            <td><%= @avg_agreement_value %></td>
+          </tr>
+      <% end %>
+    </table>
+    <br>
+
+
+    Total Number of Negotiations : <%= @games.count %>
+    <br>
+    <% if @scorelist > 0 %>
+        Total Count of Negotiators : <%= @scorelist %> <br>
+    <% else %>
+        Total Count of Negotiators : <%= @agreementlist %>
+        <br>
+    <% end %>
+
+  </div>
+</div>
+
+

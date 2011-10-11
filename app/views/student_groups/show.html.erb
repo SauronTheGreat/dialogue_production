@@ -1,0 +1,116 @@
+<div class="container">
+  <div class="sub_container_header" style="text-align: center;background-image: none;border:none;width:90%">
+    <h2><%= h @student_group.name.titleize %></h2>
+  </div>
+
+  <div class="sub_container_base" style="margin-top:-15px;width:90%">
+    <table style="background-image: none;border:none;width:100%">
+      <tr>
+        <td style="background-image: none;border:none;">
+          <table style="background-image: none;border:none;width:100%">
+            <tr style="height:100%">
+              <td style="background-image: none;border:none;width:60%">
+                <table style="background-image: none;border:none;width:100%;height:100%">
+                  <tr>
+                    <th><strong>Facilitator:</strong></th>
+                    <td style="background-image: none;"><%= h User.find(@student_group.facilitator_group.user_id).first_name %> <%= h User.find(@student_group.facilitator_group.user_id).last_name %></td>
+                  </tr>
+                  <tr>
+                    <th><strong>Exercise:</strong></th>
+                    <% if @student_group.case_study_id and @student_group.case_study_id!=0 %>
+                        <% @groupcasestudy=CaseStudy.find(@student_group.case_study_id) %>
+                        <td style="background-image: none;"><%= link_to @groupcasestudy.name, @groupcasestudy %> <%= image_tag("/images/bullet.png") %></td>
+                    <% end %>
+                  </tr>
+
+                  <% if !@student_group.pre_questionnaire_id.nil? and @student_group.pre_questionnaire_id!=0 %>
+                          <tr>
+                            <th>Pre Exercise Survey</th>
+                            <td style="background-image: none;"><%= Questionnaire.find(@student_group.pre_questionnaire_id).name %></td>
+                          </tr>
+                  <% end %>
+
+                  <% if !@student_group.post_questionnaire_id.nil? and @student_group.post_questionnaire_id!=0 %>
+                      <tr>
+                        <th>Post Exercise Survey</th>
+                        <td style="background-image: none;"><%= Questionnaire.find(@student_group.post_questionnaire_id).name %></td>
+
+                      </tr>
+                  <% end %>
+
+
+                  <tr>
+                    <td colspan="4" style="text-align:center">
+                      <table style="border:none;text-align:center;width:100%">
+                        <tr>
+                          <th style="border:none;text-align:left;">
+                            <%= button_to "Assign Exercise", {:controller=>:student_groups, :action=>'add_case_study', :id=>@student_group.id}, :class => 'gbutton' %>
+                          </th>
+                          <th style="border:none;text-align:left;">
+                            <%= button_to "Advanced Options", new_student_group_rule_path(:student_group=>@student_group.id), :class=>"gbutton" %>
+                          </th>
+                        </tr>
+                        <tr>
+                          <th style="border:none;text-align:left;">
+                            <%= button_to "Assign Pre-Exercise Survey", {:controller=>:student_groups, :action=>'add_pre_exercise_survey', :id=>@student_group.id}, :class => 'gbutton' %>
+                          </th>
+                          <th style="border:none;text-align:left;">
+                            <%= button_to "Assign Post-Exercise Survey", {:controller=>:student_groups, :action=>'add_post_exercise_survey', :id=>@student_group.id}, :class => 'gbutton' %>
+                          </th>
+                        </tr>
+                        <tr>
+                          <td colspan="4" style="text-align:center; border:none;width:100%">
+                            <% if @rule = Rule.find(:first, :conditions=>['name=?', "In-Game Survey"]) %>
+                                <% @rule_id = @rule.id %>
+                            <% end %>
+                            <% if StudentGroupRule.find(:first, :conditions=>['student_group_id=? and rule_id=?', @student_group.id, @rule_id]) %>
+                                <%= button_to "Manage In-Game Survey Metrics", new_student_group_metric_path(:student_group=>@student_group.id), :class => 'gbutton' %>
+                            <% end %>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th colspan="4" style="text-align:center; border:none;width:100%">
+                            <% if current_user.admin %>
+                                <%= link_to "Edit", edit_student_group_path(@student_group) %> |
+                                <%= link_to "Destroy", @student_group, :confirm => 'Are you sure?', :method => :delete %>
+                                |
+                                <%= link_to "View All", student_groups_path %>
+                            <% end %>
+                            <% if @student_group.case_study_id and @student_group.case_study_id!=0 %>
+                                <% if Game.find(:first, :conditions=>["student_group_id=?", @student_group.id]).blank? %>
+                                    <%= button_to "Proceed to Creation of Negotiation Sets", {:controller=>:student_groups, :action=>'game_creation', :id=>@student_group.id}, :class => 'gbutton', :style=>"height:40px;" %>
+                                <% else %>
+                                    <%= button_to "Proceed to Creation of Negotiation Sets", {:controller=>:student_groups, :action=>'game_creation', :id=>@student_group.id}, :confirm => 'Are you sure? This will destroy all existing Negotiations and Records in this Student Group.', :class => 'gbutton', :style=>"height:40px;" %>
+                                <% end %>
+                            <% end %>
+                          </th>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+              <td style="background-image: none;border:none;">
+<%#*<strong>Table of Students</strong><br/><br/>%>
+                <div style="height:150px;overflow-y:scroll; border:solid black 1px;">
+                  <% @students=StudentGroupUser.find(:all, :conditions=>['student_group_id=?', @student_group.id]) %>
+                  <% @students.each do |s| %>
+                      <table style="width:100%;font-size: 12px;">
+                        <tr>
+                          <td><%= h s.user.identifier %>
+                            : <%= h s.user.first_name %> <%= h s.user.last_name %> <%= link_to "(Log in As)", :controller => :student_groups, :action => 'switch_user', :id=>s.user.id %></td>
+                        </tr>
+                      </table>
+                  <% end %>
+                </div>
+                <%= button_to "Select Students for the Group", {:controller=>:student_group_users, :action=>'new', :student_group=>@student_group}, :class => 'gbutton', :style=>"height:60px;" %>
+
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+</div>

@@ -1,0 +1,2 @@
+module GameStatisticsHelper
+end

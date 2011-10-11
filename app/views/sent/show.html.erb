@@ -1,0 +1,30 @@
+<table style="background: none;border: none;">
+  <tr>
+    <td style="background: none;border: none">
+      <p><strong>To:</strong> <%= @message.recipients.map(&:name).to_sentence %></p>
+
+      <p><strong>Sent:</strong> <%= @message.created_at.to_s(:long) %></p>
+
+      <p><strong>Subject: </strong> <%= h(@message.subject) %></p>
+
+    </td>
+
+    <% if StudentGroupRule.first(:conditions => ['student_group_id=? and rule_id=?', @player.game.student_group_id, 2]) %>
+        <td style="background: none;border: none">
+          <% if @scoreq=Scoreq.find(:first, :conditions => ['player_id=? and message_id=?', @player, params[:id]]) %>
+              <center><%= link_to image_tag("/images/scorecard.jpg", :size=>"160x35", :style=>"border: solid black 3px;"), @scoreq, :popup => ['new_window_name', 'height=400,width=700'], :title=>"Scorecards" %></center>
+          <% else %>
+              <center><%= link_to image_tag("/images/scorecard.jpg", :size=>"160x35", :style=>"border: solid black 3px;"), new_scoreq_path(:active_game=>@active_game.id, :active_player=>@player.id, :active_message=>params[:id]), :popup => ['new_window_name', 'height=400,width=700'], :title=>"Scorecards" %></center>
+          <% end %>
+        </td>
+    <% end %>
+  </tr>
+</table>
+
+
+<br/>
+
+<div id="message_container" style="padding:2px 20px;width:95%;height:300px;overflow:auto;background-image:url('/images/paper_texture.jpg');color:darkslateblue">
+  <pre><%= h @message.body %></pre>
+</div>
+<br/>

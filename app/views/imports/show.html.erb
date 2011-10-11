@@ -1,0 +1,27 @@
+<div id="login_box" class="splash_container" style="width:50%">
+  <h2>Results of your CSV Upload</h2>
+
+    Your File: <%= @import.csv.path %> <br/><br/>
+
+  <% if @import.processed > 0 %>
+
+    Success! This import contained <%=  @import.processed %> records <br/><br/>
+    <%= link_to 'List of Users', users_path%>
+
+  <% else %>
+
+    <% if @import.datatype="users_without_roles" %>
+
+    <%= link_to "Found the file. Click to import users now...", import_proc_path(@import.id) %>   <br>
+          <% else %>
+
+
+      <%= link_to "Process the excel", :action => 'proc_excel',:id=>@import.id,:sgid=> params[:sgid] %>
+          <% end %>
+
+  <% end %>
+    <br/>
+    <br/>
+    <br/>
+</div>
+

@@ -1,0 +1,9 @@
+one:
+  game_id: 1
+  offerer: MyString
+  value: 1
+
+two:
+  game_id: 1
+  offerer: MyString
+  value: 1

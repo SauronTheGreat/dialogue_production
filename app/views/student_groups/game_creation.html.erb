@@ -1,0 +1,35 @@
+<div id="login_box" class="splash_container" style="width:50%;">
+
+  <div style="text-align: center;"><h3>Create the Negotiation Sets</h3></div>
+
+  <table style="background-image: none;border:none;margin: auto;width: 100%">
+    <tr style="background-image: none;border:none;">
+      <td style="background-image: none;border:none;">
+        <table style="width: 100%">
+          <tr>
+
+            <th>Method</th>
+            <th>Description</th>
+          </tr>
+
+          <tr>
+            <th><%= h link_to "Random ", :action => 'create_games', :id=>params[:id] %><%=image_tag("/images/bullet.png")%> </th>
+            <td>Create Negotiation Sets by random assignment of roles</td>
+          </tr>
+          <tr>
+            <th><%= h link_to "Manual", :action => 'create_games_manual', :id=>params[:id] %><%=image_tag("/images/bullet.png")%> </th>
+            <td>Create Negotiation Sets by manual assignment of roles</td>
+          </tr>
+          <tr>
+            <th><%= h link_to "Excel Upload", :action => 'create_games_excel', :id=>params[:id] %><%=image_tag("/images/bullet.png")%> </th>
+            <td>Create Negotiation Sets by uploading an Excel File</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+      <br/>
+      <br/>
+      <br/>
+
+</div>

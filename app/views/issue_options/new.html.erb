@@ -1,0 +1,45 @@
+<div class="container">
+
+  <div class="sub_container_header">
+    <h1>Options for <%= h @issue.name %></h1>
+      <span style="float:right;text-align:center;margin-top:-60px;font-size:12px;color:black;text-decoration: none;">
+        <%= link_to image_tag("/images/options.png", :size=>"35x35"), new_option_value_path(:active_issue=>@issue.id), :title=>"Each Role can have different payoffs for the same option" %>
+        <br/>Role Payoffs
+      </span>
+  </div>
+
+
+  <div class="sub_container_base">
+
+    <table>
+      <tr>
+        <th>Issue</th>
+        <th>Options</th>
+      </tr>
+      <% for issue_option in @issue_options %>
+          <tr>
+            <td><%= h issue_option.issue.name %></td>
+            <td><%= h issue_option.option %></td>
+            <td><%= link_to image_tag("/images/delete_icon.png", :size => "25x25"), issue_option, :confirm => 'Are you sure?', :method => :delete %></td>
+          </tr>
+      <% end %>
+    </table>
+
+    <% form_for @issue_option, :active_issue=>@issue.id do |f| %>
+        <%= f.error_messages %>
+        <p>
+          <%= f.hidden_field :issue_id, :value=>@issue.id %>
+        </p>
+
+        <p>
+          <%= f.label "Add Option:" %>
+          <%= f.text_field :option %>
+        </p>
+        <%= f.submit %> |
+        <%= link_to "Back to Issues", issues_path(:case_study=>@issue.case_study_id) %> |
+        <%= link_to "Back to Exercise", CaseStudy.find(@issue.case_study_id) %>
+    <% end %>
+
+  </div>
+
+</div>

@@ -1,0 +1,16 @@
+<% form_for @role_player do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :game_role_id %><br />
+    <%= f.text_field :game_role_id %>
+  </p>
+  <p>
+    <%= f.label :student_id %><br />
+    <%= f.text_field :student_id %>
+  </p>
+  <p>
+    <%= f.label :student_name %><br />
+    <%= f.text_field :student_name %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %>

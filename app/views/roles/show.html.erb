@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="sub_container_header">
+    <h3>Exercise: <%=h @role.case_study.name %></h3>
+  </div>
+
+  <div class="sub_container_base">
+    <p>
+      <strong>Role:</strong>
+      <%=h @role.name %><br/>
+
+      <%= link_to "Role Briefing", Briefing.find(:first,:conditions=>["role_id=?",@role.id]) %>|
+      <%= link_to "Create Briefing", new_briefing_path(:role=>@role.id) %>
+    </p>
+    <br/>
+    <br/>
+    <p>
+      <%= link_to "Edit", edit_role_path(@role) %> |
+      <%= link_to "Destroy", @role, :confirm => 'Are you sure?', :method => :delete %> |
+      <%= link_to "View All", roles_path %>
+    </p>
+  </div>
+</div>

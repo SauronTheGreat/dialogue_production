@@ -1,0 +1,9 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  student_group_id: 1
+  rule_id: 1
+
+two:
+  student_group_id: 1
+  rule_id: 1

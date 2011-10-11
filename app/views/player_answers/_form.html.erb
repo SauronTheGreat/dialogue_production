@@ -1,0 +1,34 @@
+<% if params[:prequestionnaire].to_i ==1 %>
+
+    <% s='create' %>
+
+
+<% else %>
+    <% s='createpost' %>
+<% end %>
+<% form_tag :action => s do %>
+
+
+    <% @player_answers.each_with_index do |player_answer, index| %>
+        <% fields_for "player_answers[#{index}]", player_answer do |f| %>
+
+            <%= f.hidden_field :player_id, :value=>params[:id].to_i %>
+            <%= f.hidden_field :question_id, :value=>@questions[index].id %>
+            <ul>
+              <li> <%= @questions[index].statement %>  </li>
+              <br>
+              <% if Type.find(@questions[index].type_id).name=="Open-Ended" %>
+                  <%= f.text_area :answer %>
+              <% else %>
+                  <% @questions[index].options.each do |option| %>
+                      <%= f.radio_button :answer, option.name %>       <%= option.name %>  <br>
+                  <% end %>
+              <% end %>
+            </ul>
+        <% end %>
+    <% end %>
+    <br/>
+    <br/>
+    <%= submit_tag %>
+<% end %>
+

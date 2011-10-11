@@ -1,0 +1,9 @@
+one:
+  player_id: 1
+  student_group_metric_id: 1
+  value: MyString
+
+two:
+  player_id: 1
+  student_group_metric_id: 1
+  value: MyString

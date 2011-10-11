@@ -1,0 +1,13 @@
+one:
+  player_id: 1
+  meyou: false
+  name: MyString
+  value: MyString
+  type: false
+
+two:
+  player_id: 1
+  meyou: false
+  name: MyString
+  value: MyString
+  type: false

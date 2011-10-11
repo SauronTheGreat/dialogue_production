@@ -1,0 +1,44 @@
+<div id="login_box" class="splash_container" style="width:50%">
+
+  <h3><%= @user == @current_user ? "Your Account Settings" : "Edit User" %></h3>
+
+  <% form_for(@user, :html => { :method => :put }) do |f| %>
+    <p><%= f.label :client %>: <%= Client.find(@user.facilitator_group.client_id).name%></p>
+
+    <p><%= f.label :facilitator_group %>:
+      <%= f.select :facilitator_group_id, FacilitatorGroup.find(:all,:conditions=>['client_id=?',@user.facilitator_group.client_id]).collect{|s| [s.name,s.id]}, :include_blank=>true %></p>
+    
+    <p><%= f.label :first_name %>
+      <%= f.text_field :first_name %></p>
+
+    <p><%= f.label :last_name %>
+      <%= f.text_field :last_name %></p>
+
+    <p><%= f.label :identifier %>
+      <%= f.text_field :identifier %></p>
+
+    <p><%= f.label :username %>
+      <%= f.text_field :username %></p>
+
+    <p><%= f.label :email %>
+      <%= f.text_field :email %></p>
+
+    <p><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br/>
+      <%= f.password_field :password %></p>
+
+    <p><%= f.label :password_confirmation %><br/>
+      <%= f.password_field :password_confirmation %></p>
+
+    <p><%= f.label 'Is Admin?' %>
+      <%= f.check_box :admin %>
+
+      <%= f.label 'Is Educator?' %>
+      <%= f.check_box :educator %></p>
+
+    <p><%= f.label :current_password %><i> (need your current password to confirm changes)</i><br/>
+      <%= f.password_field :current_password %></p>
+
+    <p><%= f.submit "Update" %></p>
+  <% end %>
+  <%= link_to "Back", :back %>
+</div>

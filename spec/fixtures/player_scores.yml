@@ -1,0 +1,9 @@
+one:
+  player_id: 1
+  issue_option_id: 1
+  value: 1
+
+two:
+  player_id: 1
+  issue_option_id: 1
+  value: 1

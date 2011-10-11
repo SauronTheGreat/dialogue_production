@@ -1,0 +1,22 @@
+<h2>Sent Messages</h2>
+
+<table border="1">
+  <tr>
+    <th style="width:20%">To</th>
+    <th style="width:60%">Subject</th>
+    <th style="width:20%">Sent</th>
+  </tr>
+
+  <% for message in @messages %>
+    <tr>
+      <td><%=h message.recipients.map(&:name).to_sentence %></td>
+      <td><%= link_to h(message.subject), sent_path(message,:active_game=>@active_game.id,:active_player=>@player.id) %></td>
+      <td><%= distance_of_time_in_words(message.created_at, Time.now) %> ago</td>
+    </tr>
+  <% end %>
+</table>
+
+<%= will_paginate @messages %>
+<br/>
+<br/>
+<br/>

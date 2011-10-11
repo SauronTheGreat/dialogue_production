@@ -1,0 +1,8 @@
+Groups to be activated/deactivated by Facilitator
+Put in the :dependent=> destroy for all
+Restrict all views by client or educator unless admin
+User CRUD restricted to admin
+Template to update Student Groups through Upload
+Roll Numbers required?
+Possibly student list with ability to allocate groups
+Template to activate/deactivate players

@@ -1,0 +1,29 @@
+<h1>Listing player_answers</h1>
+
+<table>
+  <tr>
+    <th>Player</th>
+    <th>Question</th>
+    <th>Answer</th>
+    <th>Answer after self scoring</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @player_answers.each do |player_answer| %>
+  <tr>
+    <td><%= player_answer.player_id %></td>
+    <td><%= player_answer.question_id %></td>
+    <td><%= player_answer.answer %></td>
+    <td><%= player_answer.answer_after_self_scoring %></td>
+    <td><%= link_to 'Show', player_answer %></td>
+    <td><%= link_to 'Edit', edit_player_answer_path(player_answer) %></td>
+    <td><%= link_to 'Destroy', player_answer, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Player answer', new_player_answer_path %>

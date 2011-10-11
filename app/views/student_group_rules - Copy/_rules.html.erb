@@ -1,0 +1,18 @@
+<% if !rules.blank? %>
+     <table>
+      <tr>
+        <th>Rule</th>
+        <th>Rule Description</th>
+      </tr>
+
+      <% rules.each do |student_group_rule| %>
+        <tr>
+          <td><%=h student_group_rule.rule.name %></td>
+          <td><%=h student_group_rule.rule.description %></td>
+        </tr>
+      <% end %>
+    </table>
+
+    <br />
+
+<% end %>

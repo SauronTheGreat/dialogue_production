@@ -1,0 +1,22 @@
+<div id="login_box" class="splash_container" style="width:70%">
+
+<h2>Briefing for <%= @role.name %></h2>
+
+<% form_for @briefing do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.hidden_field :role_id, :value=>@role.id %>
+  </p>
+  <p>
+    <%  @briefing=Briefing.find(:first,:conditions=>["role_id=?",params[:role]]) %>
+    <% if @briefing %>
+    <%= f.text_area :briefing_note, :size=>"80x15" ,:value=>@briefing.briefing_note%>
+        <% else %>
+    <%= f.text_area :briefing_note, :size=>"80x15" %>
+    <% end %>
+  </p>
+  <p><%= f.submit %></p>
+<% end %>
+
+<p><%= link_to "Back to List", roles_path(:case_study=>@role.case_study_id) %></p>
+</div>

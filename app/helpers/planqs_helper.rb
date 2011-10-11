@@ -1,0 +1,2 @@
+module PlanqsHelper
+end

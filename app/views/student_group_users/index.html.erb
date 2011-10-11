@@ -1,0 +1,19 @@
+<% title "Student Group Users" %>
+
+<table>
+  <tr>
+    <th>Student Group</th>
+    <th>User</th>
+  </tr>
+  <% for student_group_user in @student_group_users %>
+    <tr>
+      <td><%=h student_group_user.student_group_id %></td>
+      <td><%=h student_group_user.user_id %></td>
+      <td><%= link_to "Show", student_group_user %></td>
+      <td><%= link_to "Edit", edit_student_group_user_path(student_group_user) %></td>
+      <td><%= link_to "Destroy", student_group_user, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Student Group User", new_student_group_user_path %></p>

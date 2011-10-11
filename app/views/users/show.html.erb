@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="sub_container_header">
+    <h3><%= @user.first_name%> <%= @user.last_name%></h3>
+  </div>
+
+  <div class="sub_container_base">
+
+
+    <table>
+      <tbody>
+        <tr>
+          <td>Role:</td>
+          <td>
+            <% if @user.admin then%> <strong>Administrator</strong> <%end%>
+            <% if @user.educator then%> <strong>Educator</strong> <%end%>
+          </td>
+        </tr>
+        <tr>
+          <td>Client:</td>
+          <td><%= @user.facilitator_group.client.name %></td>
+        </tr>
+        <tr>
+          <td>Identifier:</td>
+          <td><%= @user.identifier %></td>
+        </tr>
+        <tr>
+          <td>Group:</td>
+          <td><%= if FacilitatorGroup.exists?(@user.facilitator_group_id) then @user.facilitator_group.name end%></td>
+        </tr>
+        <tr>
+          <td>Email:</td>
+          <td><%= @user.email %></td>
+        </tr>
+        <tr>
+          <td>Username:</td>
+          <td><%= @user.username %></td>
+        </tr>
+
+        <% if can?(:see_timestamps,User) %>
+          <tr>
+            <td>Created at:</td>
+            <td><%= @user.created_at %></td>
+          </tr>
+          <tr>
+            <td>Last Sign In:</td>
+            <td><%= @user.last_sign_in_at %></td>
+          </tr>
+          <tr>
+            <td>Sign In Count:</td>
+            <td><%= @user.sign_in_count %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <p style="float:right;"><%= link_to_if(can?(:update,@user), "Edit", edit_user_path(@user)) %> |
+      <%= link_to_if(can?(:delete, @user), "Delete", user_path(@user), :confirm => "Are you sure?", :method => :delete) {} %> |
+      <%= link_to "Back", users_path %>
+    </p><br/><br/>
+  </div>
+</div>

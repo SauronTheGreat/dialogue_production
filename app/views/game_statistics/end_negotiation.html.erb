@@ -1,0 +1,125 @@
+
+Please confirm closure on the negotiation issues by filling in the values in the fields below. <br/><br/>
+
+<% if @active_game.case_study.eval_type %>
+  The evaluation of this case will be done on an offer based system. The text field in front of the main issue requires a value at which the parties involved agree to transact. The other ancillary issues require you to fill up the role whose point of view is being upheld for the issue. Once the value input for each issue is the same across all players, the issue is deemed resolved.
+  <br/>
+  <br/>
+  Once all players come to a consensus on the resolution of all issues, the negotiation will be declared closed and the Facilitator informed. Till such time, the game will be considered open and active.
+  <br/>
+  <br/>
+
+  <%= form_tag :action => 'end_negotiation_update', :active_game=>@active_game.id %>
+  <div class="overflow_container">
+
+    <table>
+      <tr>
+        <th style="width:30%">Issue</th>
+        <th style="width:30%">Parameter</th>
+        <th><%=@player.name%></th>
+        <% @allplayers.each do |player| %>
+          <% if !(player.id==@player.id) %>
+            <th><%=player.name%></th>
+          <% end %>
+        <% end %>
+      </tr>
+
+      <% @player_scorecards.each_with_index do |player_scorecard,index| %>
+        <% fields_for "player_scorecards[#{index}]", player_scorecard do |f| %>
+          <tr>
+            <td style="width:30%"><%=player_scorecard.issue.name%></td>
+            <% if player_scorecard.issue.flag== "Ancillary Binary Type Issue"%>
+              <td style="width:20%">Conceded to </td>
+            <% elsif player_scorecard.issue.flag== "Main Offer Type Issue"%>
+              <td style="width:20%">Agreement Value</td>
+            <% end %>
+            <% if player_scorecard.issue.flag== "Ancillary Binary Type Issue"%>
+              <td><%=f.select :value, @allplayers.map{|player| player.name}%></td>
+            <% elsif player_scorecard.issue.flag== "Main Offer Type Issue"%>
+              <td><%=f.text_field :value%></td>
+            <% end %>
+            <%= f.hidden_field :issue_id, :value=> player_scorecard.issue.id%>
+            <%= f.hidden_field :player_id, :value=> player_scorecard.player.id%>
+
+            <% @allplayers.each do |otherplayer| %>
+              <% if !(otherplayer.id==@player.id) %>
+                <% if @ps=PlayerScorecard.find(:first,:conditions=>['player_id=? and issue_id=?',otherplayer.id,player_scorecard.issue.id]) %>
+                  <td><%= @ps.value %></td>
+                <% end %>
+              <% end %>
+            <% end %>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+  </div>
+  <br/>
+  <br/>
+  <%= submit_tag "End Negotiation", :class=>"cbutton", :style=>"width:200px"%>
+
+<% else %>
+  The evaluation of this case will be done on a scorecard based system. Pick the option that has been agreed upon for each of the issues. Once the value input for each issue is the same across all players, the issue is deemed resolved.
+  <br/>
+  <br/>
+  Once all players come to a consensus on the resolution of all issues, the negotiation will be declared closed. Till such time, the game will be considered open and active.
+  <br/>
+  <br/>
+
+
+  <%= form_tag :action => 'end_negotiation_update', :active_game=>@active_game.id %>
+  <div class="overflow_container">
+
+    <table>
+      <tr>
+        <th style="width:30%">Issue</th>
+        <th style="width:30%">Weightage</th>
+        <th><%=@player.name%></th>
+        <% @allplayers.each do |player| %>
+          <% if !(player.id==@player.id) %>
+            <th><%=player.name%></th>
+          <% end %>
+        <% end %>
+      </tr>
+
+      <% @player_scorecards.each_with_index do |player_scorecard,index| %>
+        <% fields_for "player_scorecards[#{index}]", player_scorecard do |f| %>
+      <%# @option_values=[] %>
+          <tr>
+            <td style="width:30%"><%=player_scorecard.issue.name%></td>
+            <td style="width:20%"><%=player_scorecard.issue.weightage%></td>
+
+            <% @all_issue_options=IssueOption.all(:conditions=>['issue_id=?',player_scorecard.issue.id])%>
+      <%# @all_issue_options.each do |option| %>
+      <%# @cores_option_value= OptionValue.find(:first,:conditions=>['issue_option_id=? and role_id=?',option.id,@player.role.id]) %>
+      <%# @option_values<< @cores_option_value%>
+      <%# end %>
+
+            <td><%=f.select :issue_option_id, @all_issue_options.map{|option| [option.option, option.id]}%></td>
+
+            <%= f.hidden_field :issue_id, :value=> player_scorecard.issue.id%>
+            <%= f.hidden_field :player_id, :value=> player_scorecard.player.id%>
+
+            <% @allplayers.each do |otherplayer| %>
+              <% if !(otherplayer.id==@player.id) %>
+                <% if @ps=PlayerScorecard.find(:first,:conditions=>['player_id=? and issue_id=?',otherplayer.id,player_scorecard.issue.id]) %>
+                  <td>
+                    <% if @ps.issue_option_id %>
+                      <%= IssueOption.find(@ps.issue_option_id).option %>
+                    <% end %>
+                  </td>
+                <% end %>
+              <% end %>
+            <% end %>
+          </tr>
+        <% end %>
+      <% end %>
+    </table>
+  </div>
+  <br/>
+  <br/>
+  <%= submit_tag "End Negotiation", :class=>"cbutton", :style=>"width:200px"%>
+
+<% end %>
+
+
+

@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="sub_container_header">
+    <h3>Client</h3>
+  </div>
+
+  <div class="sub_container_base">
+
+    <p>
+      <strong>Name:</strong>
+      <%=h @client.name %>
+    </p>
+    <p>
+      <strong>Type:</strong>
+      <%=h @client.client_type %>
+    </p>
+
+    <p>
+      <%= link_to "Edit", edit_client_path(@client) %> |
+      <%= link_to "Destroy", @client, :confirm => 'Are you sure?', :method => :delete %> |
+      <%= link_to "View All", clients_path %>
+    </p>
+    <br/>
+    <strong>Facilitators:</strong>
+    <ul>
+      <% @facilitators= User.all(:conditions=>["educator=?",true]) %>
+      <% @facilitators.each do |f| %>
+        <% if FacilitatorGroup.find(:first,:conditions=>["user_id=? and client_id=?",f.id,@client.id]) %>
+          <li><%= link_to f.first_name.humanize, f%> <%= link_to f.last_name.humanize, f%></li>
+        <%  end %>
+      <%  end %>
+    </ul>
+  </div>
+</div>

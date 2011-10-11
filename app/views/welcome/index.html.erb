@@ -1,0 +1,253 @@
+<%= stylesheet_link_tag 'application', 'welcome_style' %>
+
+<% if current_user.admin and current_user.educator %>
+    <table cellspacing="0px" style="width:60%;margin-left: 20%;margin-top:-60px;">
+      <tr>
+        <td style="width:33%;">
+          <div class="small_menu_container" style="background-image:url('/images/icon_texture.jpg')">
+            <a href="/clients" style="color:black;text-decoration: none;">
+              <h2>Client <br/>Management</h2>
+              <img src="/images/client_icon.png" alt="background" style="width:75px;height:75px;"/>
+            </a>
+          </div>
+        </td>
+        <td style="width:33%;">
+          <div class="small_menu_container" style="background-image:url('/images/icon_texture.jpg')">
+            <a href="/users" style="color:black;text-decoration: none;">
+              <h2>User <br/>Management</h2>
+              <img src="/images/users-icon.png" alt="background" style="width:75px;height:75px;"/>
+            </a>
+          </div>
+        </td>
+        <td style="width:33%">
+          <div class="small_menu_container" style="background-image:url('/images/icon_texture.jpg')">
+            <a href="/case_studies" style="color:black;text-decoration: none;">
+              <h2>Case <br/>Management</h2>
+              <img src="/images/case.png" alt="background" style="width:75px;height:75px;"/>
+            </a>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td style="width:33%;">
+          <div class="small_menu_container" style="background-image:url('/images/icon_texture.jpg')">
+            <a href="/case_studies" style="color:black;text-decoration: none;">
+              <h2>Case <br/>Library</h2>
+              <img src="/images/library.png" alt="background" style="width:75px;height:75px;"/>
+            </a>
+          </div>
+        </td>
+        <td style="width:33%">
+          <div class="small_menu_container" style="background-image:url('/images/icon_texture.jpg')">
+            <a href="/student_groups" style="color:black;text-decoration: none;">
+              <h2>Student <br/>Management</h2>
+              <img src="/images/students.png" alt="background" style="width:75px;height:75px;"/>
+            </a>
+          </div>
+        </td>
+        <td style="width:33%">
+          <div class="small_menu_container" style="background-image:url('/images/icon_texture.jpg')">
+            <h2>Data and <br/>Statistics</h2>
+            <img src="/images/datastats.png" alt="background" style="width:75px;height:75px;"/>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+<% elsif current_user.admin %>
+    <table cellspacing="20px" style="width:75%;margin-left: 11%">
+      <tr>
+        <td style="width:20%;">
+          <div id="client_library" class="menu_container" style="background-image:url('/images/icon_texture.jpg')">
+            <a href="/clients" style="color:black;text-decoration: none;">
+              <h3>Client <br/>Management</h3>
+              <img src="/images/client_icon.png" alt="background" style="width:100px;height:100px;"/>
+            </a>
+          </div>
+        </td>
+        <td style="width:20%">
+          <div id="facilitator_management" class="menu_container" style="background-image:url('/images/icon_texture.jpg')">
+            <a href="/facilitator_groups" style="color:black;text-decoration: none;">
+              <h3>Educator <br/>Management</h3>
+              <img src="/images/fac.png" alt="background" style="width:100px;height:100px;"/>
+            </a>
+          </div>
+        </td>
+        <td style="width:20%;">
+          <div class="menu_container" style="background-image:url('/images/icon_texture.jpg')">
+            <a href="/users" style="color:black;text-decoration: none;">
+              <h3>User <br/>Management</h3>
+              <img src="/images/users-icon.png" alt="background" style="width:100px;height:100px;"/>
+            </a>
+          </div>
+        </td>
+        <td style="width:20%">
+          <div id="case_management" class="menu_container" style="background-image:url('/images/icon_texture.jpg')">
+            <a href="/case_studies" style="color:black;text-decoration: none;">
+              <h3>Case <br/>Management</h3>
+              <img src="/images/case.png" alt="background" style="width:100px;height:100px;"/>
+            </a>
+          </div>
+        </td>
+        <td style="width:20%">
+          <div id="rules_management" class="menu_container" style="background-image:url('/images/icon_texture.jpg')">
+            <a href="/rules" style="color:black;text-decoration: none;">
+              <h3>Rules <br/>Management</h3>
+              <img src="/images/rules.png" alt="background" style="width:100px;height:100px;"/>
+            </a>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+<% elsif current_user.educator %>
+    <table cellspacing="20px" style="width:75%;margin-left: 11.5%">
+      <tr>
+        <td style="width:20%;">
+          <div id="menu_case_library" class="menu_container" style="background-image:url('/images/icon_texture.jpg')">
+            <a href="/case_studies" style="color:black;text-decoration: none;">
+              <h3>Exercise <br/>Library</h3><br/><br/>
+              <img src="/images/library.png" alt="background" style="width:100px;height:100px;"/>
+            </a>
+          </div>
+        </td>
+        <td style="width:20%;">
+          <div id="user_library" class="menu_container" style="background-image:url('/images/icon_texture.jpg')">
+            <a href="/users" style="color:black;text-decoration: none;">
+              <h3>User <br/>Management</h3><br/> <br/>
+              <img src="/images/users-icon.png" alt="background" style="width:100px;height:100px;"/>
+            </a>
+          </div>
+        </td>
+        <td style="width:20%">
+          <% link_to questionnaires_path do %>
+              <div id="menu_data_stats" class="menu_container" style="background-image:url('/images/icon_texture.jpg')">
+                <h3>Survey<br> Management</h3><br><br/>
+                <img src="/images/questionnaire.png" alt="background" style="width:100px;height:100px;"/>
+              </div>
+          <% end %>
+        </td>
+        <td style="width:20%">
+          <div id="menu_student_management" class="menu_container" style="background-image:url('/images/icon_texture.jpg')">
+            <a href="/student_groups" style="color:black;text-decoration: none;">
+              <h3>Student <br/>Group <br/> Management</h3><br/>
+              <img src="/images/students.png" alt="background" style="width:100px;height:100px;"/>
+            </a>
+          </div>
+        </td>
+        <td style="width:20%">
+          <% link_to data_viewer_path do %>
+              <div id="menu_data_stats" class="menu_container" style="background-image:url('/images/icon_texture.jpg')">
+                <h3>Data and <br/>Statistics</h3><br/><br/>
+                <img src="/images/datastats.png" alt="background" style="width:100px;height:100px;"/>
+              </div>
+          <% end %>
+        </td>
+      </tr>
+    </table>
+<% else %>
+    <table cellspacing="20px" style="width:75%;margin-left: 11.5%;">
+      <tr>
+        <% if !params[:active_game] %>
+            <td style="width:33%;">
+              <div id="menu_mail_system" class="menu_container" style="background-image:url('/images/icon_texture.jpg')">
+                <h2>Select<br/>Negotiation</h2>
+                <a href="/game_select" style="color:black;text-decoration: none;">
+                  <img src="/images/choice_icon.png" alt="background" style="width:150px;height:150px;"/>
+                </a>
+              </div>
+            </td>
+            <td style="width:33%">
+              <% link_to data_viewer_path do %>
+                  <div id="menu_student_stats" class="menu_container" style="background-image:url('/images/icon_texture.jpg')">
+                    <h2>Data and <br/>Statistics</h2>
+                    <img src="/images/datastats.png" alt="background" style="width:150px;height:150px;"/>
+                  </div>
+              <% end %>
+            </td>
+        <% else %>
+            <td style="width:25%">
+              <% @player=Player.first(:conditions=>['user_id=? and game_id=?', current_user.id, @active_game.id])%>
+              <% @player_role_id=@player.role.id %>
+              <% @briefing=Briefing.find(:first, :conditions=>['role_id=?', @player_role_id]) %>
+              <% link_to(:controller=>'briefings', :action=>'show', :id=>@briefing.id, :active_game=>@active_game.id) do %>
+                  <div id="menu_student_stats" class="menu_container" style="background-image:url('/images/icon_texture.jpg')">
+                    <h2>Role <br/> Briefing</h2>
+                    <img src="/images/briefing.png" alt="background" style="width:150px;height:150px;"/>
+                  </div>
+              <% end %>
+            </td>
+            <td style="width:25%">
+              <% if !@active_game.student_group.pre_questionnaire_id.nil? && StudentRouting.find_by_player_id(@player.id).pre_neg_required? && !StudentRouting.find_by_player_id(@player.id).pre_neg_taken?%>
+                  <% link_to new_player_answer_path(:id=>Player.find_by_user_id(current_user.id), :active_game=>@active_game.id, :prequestionnaire => 1) do %>
+                      <div id="menu_survey" class="menu_container" style="background-image:url('/images/icon_texture.jpg')">
+                        <h2>Planning <br/>Survey</h2>
+                        <img src="/images/planning.png" alt="background" style="width:150px;height:150px;"/>
+                      </div>
+                  <% end %>
+              <% else %>
+                  <% link_to inbox_path(:active_game=>@active_game.id) do %>
+                      <div id="menu_student_stats" class="menu_container" style="background-image:url('/images/icon_texture.jpg')">
+                        <h2>Start the <br/>Negotiation</h2>
+                        <img src="/images/mail-icon.png" alt="background" style="width:150px;height:150px;"/>
+                      </div>
+                  <% end %>
+              <% end %>
+            </td>
+            <td style="width:25%">
+              <% link_to student_data_view_path(:active_game=>@active_game.id, :active_player=>Player.find_by_user_id(current_user.id)) do %>
+                  <div id="menu_student_stats" class="menu_container" style="background-image:url('/images/icon_texture.jpg')">
+                    <h2>Data and <br/>Statistics</h2>
+                    <img src="/images/datastats.png" alt="background" style="width:150px;height:150px;"/>
+                  </div>
+              <% end %>
+            </td>
+            <td style="width:25%">
+
+
+              <% @student_group=StudentGroup.find(@active_game.student_group_id) %>
+              <% @student_routing= StudentRouting.find_by_player_id(Player.find_by_user_id(current_user.id).id) %>
+              <% if !@student_group.post_questionnaire_id.nil? %>
+                  <% @questionnaire=Questionnaire.find(@student_group.post_questionnaire_id) %>
+              <% end %>
+
+
+
+              <% if !@student_group.post_questionnaire_id.nil? && @student_routing.post_neg_required? && !@student_routing.post_neg_taken? && @questionnaire.questions.count >0 %>
+                  <% link_to :controller=>:player_answers, :action=>'new', :id=>Player.find_by_user_id(current_user.id), :prequestionnaire=> 0 do %>
+
+                      <div id="menu_end_negotiation" class="menu_container" style="background-image:url('/images/icon_texture.jpg')">
+                        <h2>End <br/>Negotiation</h2>
+                        <img src="/images/shut_down.png" alt="background" style="width:150px;height:150px;"/>
+                      </div>
+                  <% end %>
+              <% else %>
+
+                  <% link_to agreed_path(:active_game=>@active_game.id) do %>
+
+                      <div id="menu_end_negotiation" class="menu_container" style="background-image:url('/images/icon_texture.jpg')">
+                        <h2>End <br/>Negotiation</h2>
+                        <img src="/images/shut_down.png" alt="background" style="width:150px;height:150px;"/>
+                      </div>
+                  <% end %>
+
+
+              <% end %>
+
+        <% end %>
+        </td>
+      </tr>
+      <% if @active_game %>
+          <tr>
+            <td colspan="4">
+              <div id="menu_instructions" class="menu_container" style="height:60px;color:#000033 ;background-image:url('/images/icon_texture-bkp.jpg');padding:0px;">
+                <h2>
+                  Negotiating <%= @active_game.case_study.name %>
+                  as <%= Player.first(:conditions=>['user_id=? and game_id=?', current_user.id, @active_game.id]).role.name %>
+                </h2>
+              </div>
+            </td>
+          </tr>
+      <% end %>
+    </table>
+<% end %>

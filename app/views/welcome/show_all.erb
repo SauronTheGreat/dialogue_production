@@ -1,0 +1,22 @@
+<div class='container'>
+  <div class="sub_container_base">
+    <list>
+      The Pre questionnaire Survey are:
+      <% @prequestionnaire.questions.each do |question| %>
+      <ul><%= question.statement %></ul>
+              <% question.options.each do |option| %>
+          <ul><%= option.name %></ul>
+              <%end %>
+
+
+          <% end %>
+      <ul>
+
+      </ul>
+
+    </list>
+
+  </div>
+
+
+</div>

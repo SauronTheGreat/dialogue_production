@@ -1,0 +1,195 @@
+<h2>Planning Document</h2>
+<br/>
+
+<%= form_tag :action => 'create', :active_game=>@active_game.id %>
+<div style="height:150px;overflow-y:scroll;" >
+  <table>
+
+    <% @planqs.each_with_index do |survey_response, index| %>
+      <% fields_for "planqs[#{index}]", survey_response do |f| %>
+        <%= f.hidden_field :player_id, :value=>@player.id %>
+
+        <% if index==@issue_count%>
+          <tr>
+            <th>How important to the other party are the following issues?</th>
+            <td style="text-align:center">Not at all</td>
+            <td style="text-align:center">Slightly</td>
+            <td style="text-align:center">Moderately</td>
+            <td style="text-align:center">Much</td>
+            <td style="text-align:center">Very Much</td>
+          </tr>
+        <% elsif index==0%>
+          <tr>
+            <th>How important to you are the following issues?</th>
+            <td style="text-align:center">Not at all</td>
+            <td style="text-align:center">Slightly</td>
+            <td style="text-align:center">Moderately</td>
+            <td style="text-align:center">Much</td>
+            <td style="text-align:center">Very Much</td>
+          </tr>
+        <% end %>
+
+        <% if index<=@issue_count-1 %>
+          <tr>
+            <td>
+              <%= f.hidden_field :name, :value=>@issues[index].name %>
+              <%= @issues[index].name %>
+              <%= f.hidden_field :meyou, :value=>"me" %>
+            </td>
+            <%  if @planqnav=Planq.find(:first,:conditions=>['player_id=? and name=? and meyou=?',@player.id, @issues[index].name,"me"])%>
+
+              <% if @planqnav.value== "Not at all" %>
+                <% @rbstatus=true  %>
+              <% else %>
+                <% @rbstatus=false  %>
+              <% end %>
+              <td style="text-align:center"><%= f.radio_button :value, "Not at all", :checked=>@rbstatus%></td>
+
+              <% if @planqnav.value== "Slightly" %>
+                <% @rbstatus=true  %>
+              <% else %>
+                <% @rbstatus=false  %>
+              <% end %>
+              <td style="text-align:center"><%= f.radio_button :value, "Slightly",:checked=>@rbstatus%></td>
+
+              <% if @planqnav.value== "Moderately" %>
+                <% @rbstatus=true  %>
+              <% else %>
+                <% @rbstatus=false  %>
+              <% end %>
+              <td style="text-align:center"><%= f.radio_button :value, "Moderately",:checked=>@rbstatus%></td>
+
+              <% if @planqnav.value== "Much" %>
+                <% @rbstatus=true  %>
+              <% else %>
+                <% @rbstatus=false  %>
+              <% end %>
+              <td style="text-align:center"><%= f.radio_button :value, "Much",:checked=>@rbstatus%></td>
+
+              <% if @planqnav.value== "Very Much" %>
+                <% @rbstatus=true  %>
+              <% else %>
+                <% @rbstatus=false  %>
+              <% end %>
+              <td style="text-align:center"><%= f.radio_button :value, "Very Much",:checked=>@rbstatus%></td>
+
+            <% else %>
+              <td style="text-align:center"><%= f.radio_button :value, "Not at all", :checked=>true%></td>
+              <td style="text-align:center"><%= f.radio_button :value, "Slightly",:checked=>false%></td>
+              <td style="text-align:center"><%= f.radio_button :value, "Moderately",:checked=>false%></td>
+              <td style="text-align:center"><%= f.radio_button :value, "Much",:checked=>false%></td>
+              <td style="text-align:center"><%= f.radio_button :value, "Very Much",:checked=>false%></td>
+            <% end %>
+
+
+          </tr>
+        <% elsif index<=(2*@issue_count-1) %>
+          <tr>
+            <td>
+              <%= f.hidden_field :name, :value=>@issues[index-@issue_count].name %>
+              <%= @issues[index-@issue_count].name %>
+              <%= f.hidden_field :meyou, :value=>"you"%>
+            </td>
+            <%  if @planqnav=Planq.find(:first,:conditions=>['player_id=? and name=? and meyou=?',@player.id, @issues[index-@issue_count].name,"you"])%>
+
+              <% if @planqnav.value== "Not at all" %>
+                <% @rbstatus=true  %>
+              <% else %>
+                <% @rbstatus=false  %>
+              <% end %>
+              <td style="text-align:center"><%= f.radio_button :value, "Not at all", :checked=>@rbstatus%></td>
+
+              <% if @planqnav.value== "Slightly" %>
+                <% @rbstatus=true  %>
+              <% else %>
+                <% @rbstatus=false  %>
+              <% end %>
+              <td style="text-align:center"><%= f.radio_button :value, "Slightly",:checked=>@rbstatus%></td>
+
+              <% if @planqnav.value== "Moderately" %>
+                <% @rbstatus=true  %>
+              <% else %>
+                <% @rbstatus=false  %>
+              <% end %>
+              <td style="text-align:center"><%= f.radio_button :value, "Moderately",:checked=>@rbstatus%></td>
+
+              <% if @planqnav.value== "Much" %>
+                <% @rbstatus=true  %>
+              <% else %>
+                <% @rbstatus=false  %>
+              <% end %>
+              <td style="text-align:center"><%= f.radio_button :value, "Much",:checked=>@rbstatus%></td>
+
+              <% if @planqnav.value== "Very Much" %>
+                <% @rbstatus=true  %>
+              <% else %>
+                <% @rbstatus=false  %>
+              <% end %>
+              <td style="text-align:center"><%= f.radio_button :value, "Very Much",:checked=>@rbstatus%></td>
+
+            <% else %>
+              <td style="text-align:center"><%= f.radio_button :value, "Not at all", :checked=>true%></td>
+              <td style="text-align:center"><%= f.radio_button :value, "Slightly",:checked=>false%></td>
+              <td style="text-align:center"><%= f.radio_button :value, "Moderately",:checked=>false%></td>
+              <td style="text-align:center"><%= f.radio_button :value, "Much",:checked=>false%></td>
+              <td style="text-align:center"><%= f.radio_button :value, "Very Much",:checked=>false%></td>
+            <% end %>
+          </tr>
+        <% else %>
+          <% i= index- (2*@issue_count-1) %>
+          <% if i==1 %>
+          </table>
+        </div>
+        <br/>
+        <table>
+          <tr>
+            <th>Define your position:</th>
+          </tr>
+          <tr>
+            <td><%= f.label "BATNA" %></td>
+            <td colspan="5">
+              <%= f.hidden_field :name, :value=>"BATNA" %>
+              <%  if @planqnav=Planq.find(:first,:conditions=>['player_id=? and name=?',@player.id, "BATNA"])%>
+                <%= f.text_field :value, :value=>@planqnav.value %>
+              <% else %>
+                <%= f.text_field :value%>
+              <% end %>
+              <%= f.hidden_field :meyou, :value=>"general" %>
+            </td>
+          </tr>
+        <% elsif i==2 %>
+          <tr>
+            <td><%= f.label "Reservation Price" %></td>
+            <td colspan="5">
+              <%= f.hidden_field :name, :value=>"Reservation Price" %>
+              <%  if @planqnav=Planq.find(:first,:conditions=>['player_id=? and name=?',@player.id, "Reservation Price"])%>
+                <%= f.text_field :value, :value=>@planqnav.value %>
+              <% else %>
+                <%= f.text_field :value%>
+              <% end %>
+              <%= f.hidden_field :meyou, :value=>"general" %>
+            </td>
+          </tr>
+        <% else %>
+          <tr>
+            <td><%= f.label "Target Price" %></td>
+            <td colspan="5">
+              <%= f.hidden_field :name, :value=>"Target Price" %>
+              <%  if @planqnav=Planq.find(:first,:conditions=>['player_id=? and name=?',@player.id, "Target Price"])%>
+                <%= f.text_field :value, :value=>@planqnav.value %>
+              <% else %>
+                <%= f.text_field :value%>
+              <% end %>
+              <%= f.hidden_field :meyou, :value=>"general" %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+</table>
+<br/>
+<br/>
+<%= submit_tag "Confirm", :class=>"cbutton"%>
+<br/>
+<br/>

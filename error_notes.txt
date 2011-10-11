@@ -1,0 +1,3 @@
+notes for dialogue
+
+1) Clicking on roles for case studies-XYZ gives an error because no role brielfing has been created for it.

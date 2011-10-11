@@ -1,0 +1,61 @@
+<table style="border:none;">
+  <tr>
+    <td style="border:none;">
+      <p><strong>From:</strong> <%= h @message.author.name %></p>
+
+      <p><strong>To:</strong> <%= h @message.recipients.map(&:name).to_sentence %></p>
+
+      <p><strong>Received:</strong> <%= @message.created_at.to_s(:long) %></p>
+
+      <p><strong>Subject:</strong> <%= @message.subject %></p>
+    </td>
+    <td style="border:none;float:right;margin-right:50px;">
+      <% if @active_game.status %>
+          <%= link_to "Reply", reply_message_path(@message, :active_game=>@active_game.id, :active_player=>@player.id) %>
+          |
+          <%= link_to "Reply All", reply_all_message_path(@message, :active_game=>@active_game.id, :active_player=>@player.id) %>
+          |
+          <%= link_to "Forward", forward_message_path(@message, :active_game=>@active_game.id, :active_player=>@player.id) %>
+          <br/>
+          <br/>
+          <% if StudentGroupRule.first(:conditions => ['student_group_id=? and rule_id=?', @player.game.student_group_id, 2]) %>
+              <% if @scoreq=Scoreq.find(:first, :conditions => ['player_id=? and message_id=?', @player, params[:id]]) %>
+                  <center><%= link_to image_tag("/images/scorecard.jpg", :size=>"160x35", :style=>"border: solid black 3px;"), @scoreq, :popup => ['new_window_name', 'height=400,width=700'], :title=>"Scorecards" %></center>
+              <% else %>
+                  <center><%= link_to image_tag("/images/scorecard.jpg", :size=>"160x35", :style=>"border: solid black 3px;"), new_scoreq_path(:active_game=>@active_game.id, :active_player=>@player.id, :active_message=>params[:id]), :popup => ['new_window_name', 'height=400,width=700'], :title=>"Scorecards" %></center>
+              <% end %>
+          <% end %>
+      <% end %>
+    </td>
+  </tr>
+</table>
+<table>
+  <tr>
+    <td style="background-image:none;border: none;vertical-align: top;width:60%;height:80%;margin-top:12px;">
+      <div id="message_container" style="padding:2px 20px;width:80%;height:280px;overflow:auto;background-image:url('/images/paper_texture.jpg');color:darkslateblue">
+        <%= h simple_format(@message.body) %>
+      </div>
+    </td>
+    <% if @active_game.case_study.eval_type %>
+        <td style="background-image:none;border: none;vertical-align: top;width:40%;height:80%;margin-top:12px;">
+          <center><strong>Offer History</strong></center>
+          <span style="font-size:x-small"><center><%= link_to "See chart", offer_chart_path(:active_game=>@active_game.id, :active_player=>@player.id) %></center> </span>
+          <br/>
+
+          <div style="overflow:auto;height:200px;">
+            <table style="background-image:url('/images/paper_texture.jpg');border: none;width:90%;margin: auto;">
+              <% @alloffers=Offer.find(:all, :conditions=>['game_id=?', @active_game.id], :order=>"created_at ASC") %>
+              <% @alloffers.each do |o| %>
+                  <tr>
+                    <td style="background-image: none;border: 1px solid black;"><%= Player.find(o.offerer).name %></td>
+                    <td style="background-image: none;border: 1px solid black;"><%= o.value %></td>
+                  </tr>
+              <% end %>
+            </table>
+          </div>
+          <br/>
+          <br/>
+        </td>
+    <% end %>
+  </tr>
+</table>

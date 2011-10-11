@@ -1,0 +1,141 @@
+<% if current_user.educator
+       @facilitator_group_id=FacilitatorGroup.first(:conditions=>['user_id=?', current_user.id]).id
+       @allmy_student_groups=StudentGroup.all(:conditions=>['facilitator_group_id=?', @facilitator_group_id])
+       @allmy_users_first_names=User.all(:select=>"DISTINCT first_name", :conditions=>['facilitator_group_id=?', @facilitator_group_id])
+       @allmy_users_last_names=User.all(:select=>"DISTINCT last_name", :conditions=>['facilitator_group_id=?', @facilitator_group_id])
+
+       if params[:searchgroup]=="All"
+           @my_student_groups=StudentGroup.all(:conditions=>['facilitator_group_id=?', @facilitator_group_id])
+       elsif params[:searchgroup]
+           @my_student_groups = StudentGroup.find(:all, :conditions=>['facilitator_group_id=? and name LIKE ?', @facilitator_group_id, "%#{params[:searchgroup]}"])
+       else
+           @my_student_groups=StudentGroup.all(:conditions=>['facilitator_group_id=?', @facilitator_group_id])
+       end
+       @my_student_groups_ids=@my_student_groups.map { |i| i.id }
+       @my_student_groups_cases=@my_student_groups.map { |i| i.case_study_id }
+       @allmy_cases=CaseStudy.all(:conditions=>['id IN(?)', @my_student_groups_cases])
+       @allmy_caseids=@allmy_cases.map { |i| i.id }
+       @allmy_roles=Role.all(:conditions=>['case_study_id IN(?)', @allmy_caseids])
+       @allmy_roleids=@allmy_roles.map { |i| i.id }
+
+
+       if params[:searchcase]=="All"
+           @my_cases=CaseStudy.all(:conditions=>['id IN(?)', @my_student_groups_cases])
+       elsif params[:searchcase]
+           @my_cases = CaseStudy.find(:all, :conditions=>['name LIKE ?', "%#{params[:searchcase]}"])
+       else
+           @my_cases=CaseStudy.all(:conditions=>['id IN(?)', @my_student_groups_cases])
+       end
+       @my_student_cases_ids=@my_cases.map { |i| i.id }
+
+       @allgames=Game.all(:conditions=>['student_group_id IN(?) and case_study_id IN(?)', @my_student_groups_ids, @my_student_cases_ids]).map { |i| i.id }
+
+       if params[:searchfirstname]=="All"
+           if params[:searchlastname]=="All"
+               @all_users=User.all.map { |i| i.id }
+           elsif params[:searchlastname]
+               @all_users = User.all(:conditions=>['last_name LIKE ?', "%#{params[:searchlastname]}"]).map { |i| i.id }
+           else
+               @all_users=User.all.map { |i| i.id }
+           end
+       elsif params[:searchfirstname]
+           @all_users_fn = User.all(:conditions=>['first_name LIKE ?', "%#{params[:searchfirstname]}"]).map { |i| i.id }
+           if params[:searchlastname]=="All"
+               @all_users=@all_users_fn
+           elsif params[:searchlastname]
+               @all_users = User.all(:conditions=>['last_name LIKE ? and first_name LIKE ?', "%#{params[:searchlastname]}", "%#{params[:searchfirstname]}"]).map { |i| i.id }
+           else
+               @all_users=@all_users_fn
+           end
+       else
+           @all_users=User.all.map { |i| i.id }
+       end
+
+       if params[:searchrole]=="All"
+           @allroleids = Role.all(:conditions=>['id IN(?)', @allmy_roleids])
+       elsif params[:searchrole]
+           @allroleids = Role.find(:all, :conditions=>['id IN(?) and name LIKE ?', @allmy_roleids, "%#{params[:searchrole]}"])
+       else
+           @allroleids = Role.all(:conditions=>['id IN(?)', @allmy_roleids])
+       end
+
+       @all_role_ids = @allroleids.map { |i| i.id }
+       @allplayers=Player.all(:conditions=>["game_id IN(?) and user_id IN(?) and role_id IN(?)", @allgames, @all_users, @all_role_ids])
+
+   else
+       @allgames=Game.all.map { |i| i.id }
+       @allplayers=Player.all(:conditions=>["user_id=? and game_id IN(?)", current_user.id, @allgames])
+   end %>
+
+
+
+<% if current_user.educator %>
+    <div class="container">
+      <table style="width:100%">
+        <tr>
+          <th>Student Group</th>
+          <th>Exercise</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Role</th>
+        </tr>
+        <% form_tag data_viewer_path, :method=> 'get' do %>
+            <tr>
+              <td><%= select_tag :searchgroup, options_from_collection_for_select(@allmy_student_groups.insert(0, StudentGroup.new(:name=>"All")), 'name', 'name', params[:searchgroup]) %></td>
+              <td><%= select_tag :searchcase, options_from_collection_for_select(@allmy_cases.insert(0, CaseStudy.new(:name=>"All")), 'name', 'name', params[:searchcase]) %></td>
+              <td><%= select_tag :searchfirstname, options_from_collection_for_select(@allmy_users_first_names.insert(0, User.new(:first_name=>"All")), 'first_name', 'first_name', params[:searchfirstname]) %></td>
+              <td><%= select_tag :searchlastname, options_from_collection_for_select(@allmy_users_last_names.insert(0, User.new(:last_name=>"All")), 'last_name', 'last_name', params[:searchlastname]) %></td>
+              <td><%= select_tag :searchrole, options_from_collection_for_select(@allmy_roles.insert(0, Role.new(:name=>"All")), 'name', 'name', params[:searchrole]) %></td>
+              <td><%= submit_tag "Search", :name=>nil, :class=>'fbutton' %></td>
+            </tr>
+
+        <% end %>
+        <tr>
+          <th colspan="6">
+            <center><%= link_to "Download data for all negotiations conducted by this set of participants...", :action=>'download_data', :searchcase=>params[:searchcase], :searchgroup=>params[:searchgroup], :searchfirstname=>params[:searchfirstname], :searchlastname=>params[:searchlastname], :searchrole=>params[:searchrole], :filename=>"download-#{current_user.id}-#{params[:searchgroup]}-#{params[:searchcase]}-#{params[:searchfirstname]}-#{params[:searchlastname]}-#{params[:searchrole]}.xls" %><%= image_tag("/images/bullet.png") %></center>
+          </th>
+        </tr>
+      </table>
+      <br/>
+    </div>
+<% end %>
+
+<div class="container" style="height:300px;overflow:auto;">
+
+  <% if !@allplayers.blank? %>
+      <table style="width:100%">
+        <tr>
+          <% if current_user.educator %>
+              <th style="border:solid black 1px;width:20%">Student Group</th>
+          <% end %>
+          <th style="border:solid black 1px;width:30%">Exercise Name</th>
+          <% if current_user.educator %>
+              <th style="border:solid black 1px;width:20%">Player Name</th>
+          <% end %>
+          <th style="border:solid black 1px;width:20%">Role Name</th>
+        </tr>
+        <% i=0 %>
+        <% @allplayers.each do |player| %>
+            <tr>
+              <% if current_user.educator %>
+                  <td style="background-image: none;border:solid black 1px;width:20%"><%= h player.game.student_group.name %></td>
+              <% end %>
+              <% @gameid=player.game_id %>
+              <td style="background-image: none;border:solid black 1px;width:30%"><%= h CaseStudy.find(Game.find(@gameid).case_study_id).name %></td>
+              <% if current_user.educator %>
+                  <td style="background-image: none;border:solid black 1px;width:20%"><%= h User.find(player.user_id).first_name %> <%= h User.find(player.user_id).last_name %></td>
+              <% end %>
+              <td style="background-image: none;border:solid black 1px;width:20%"><%= h Role.find(player.role_id).name %></td>
+              <th style="border:solid black 1px;width:2%;text-align:center"><%= link_to image_tag("/images/datastats.png", :size=>"25x25"), student_data_options_path(:active_game=>@gameid, :active_player=>player.id), :title => "Exercise Data" %></th>
+              <% if current_user.educator %>
+                  <th style="border:solid black 1px;width:2%;text-align:center"><%= link_to image_tag("/images/new-mail-icon.png", :size=>"25x25"), {:action => 'download_email', :gid=>player.game_id, :active_game=>@gameid, :active_player=>player.id}, :title => "Exercise Emails" %></th>
+              <% end %>
+
+            </tr>
+        <% end %>
+      </table>
+  <% else %>
+      <center><h2>No Negotiations match this search criteria.</h2></center>
+  <% end %>
+
+</div>

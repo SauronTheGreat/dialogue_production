@@ -1,0 +1,24 @@
+<div class="container">
+
+  <div class="sub_container_header">
+    <h1><%=h @facilitator_group.name %></h1>
+  </div>
+
+  <div class="sub_container_base">
+
+    <p>
+      <strong>Client:</strong>
+      <%=h Client.find(@facilitator_group.client_id).name%>
+    </p>
+    <p>
+      <strong>Educator:</strong>
+      <%=h User.find(@facilitator_group.user_id).first_name%> <%=h User.find(@facilitator_group.user_id).last_name%>
+    </p>
+        <p>
+      <%= link_to "Edit", edit_facilitator_group_path(@facilitator_group) %> |
+      <%= link_to "Delete", @facilitator_group, :confirm => 'Are you sure?', :method => :delete %> |
+      <%= link_to "View All", facilitator_groups_path %>
+    </p>
+
+  </div>
+</div>

@@ -1,0 +1,17 @@
+one:
+  player_id: 1
+  inout: false
+  newreply: false
+  to_players: MyString
+  from_player: MyString
+  subject: MyString
+  mail_body: MyText
+
+two:
+  player_id: 1
+  inout: false
+  newreply: false
+  to_players: MyString
+  from_player: MyString
+  subject: MyString
+  mail_body: MyText

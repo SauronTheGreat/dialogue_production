@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title><%= h(yield(:title) || "Dialogue") %></title>
+  <%= stylesheet_link_tag 'application' %>
+  <%= javascript_include_tag :all %>
+  <%= csrf_meta_tag %>
+
+  <%= yield(:head) %>
+</head>
+
+<body>
+
+<div id="background">
+  <img src="/images/back-texture.jpg" alt="background" style="background-repeat: repeat-y;"/>
+</div>
+
+<% if params[:preview_on] %>
+<% @preview=1 %>
+    <% end %>
+<div id="top_panel" class="container">
+  <table style="width:100%;border:none;background-image: none;">
+    <tr style="border:none;background-image: none;">
+      <td style="width:50%;float:left;border:none;background-image: none;">
+        <span style="font-size:48px;font-weight: bolder">Dialogue</span><br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The Negotiation Platform&nbsp;&nbsp;&nbsp;
+      </td>
+      <td style="float:right;border:none;background-image: none;">
+        <div id="user_nav" class="signin_container" style="float:left;margin-left: auto;margin-right: auto;text-align: center">
+          <% if user_signed_in? %>
+              Signed in as
+              <span style="color:darkorange; font-size: 18px;font-weight: bold;"><%= current_user.username %></span>.<br/>
+              <% if session[:preview]=="yes" %>
+                  <% if TempUser.first %>
+                      <%= link_to "Switch Back", switch_back_path, :style=>"color:white;font-size:10px;text-decoration:none;" %>
+                  <% else %>
+                      <%= link_to "Sign Out", destroy_user_session_path, :style=>"color:white;font-size:10px;text-decoration:none;" %>
+                  <% end %>
+              <% else %>
+                  <%= link_to "Sign Out", destroy_user_session_path, :style=>"color:white;font-size:10px;text-decoration:none;" %>
+
+              <% end %>
+
+          <% else %>
+              <%= link_to "Sign In", new_user_session_path %>
+          <% end %>
+          <br/>
+        </div>
+      </td>
+      <td style="border:none;background-image: none;">
+
+      </td>
+    </tr>
+  </table>
+</div>
+
+<%= yield %>
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+<% title "Metric" %>
+
+<p>
+  <strong>Name:</strong>
+  <%=h @metric.name %>
+</p>
+<p>
+  <strong>Description:</strong>
+  <%=h @metric.description %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_metric_path(@metric) %> |
+  <%= link_to "Destroy", @metric, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", metrics_path %>
+</p>

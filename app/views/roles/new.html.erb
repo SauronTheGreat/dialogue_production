@@ -1,0 +1,28 @@
+<div id="login_box" class="splash_container" style="width:70%">
+
+  <h2>Role for <%= CaseStudy.find(params[:case_study]).name %></h2>
+
+  <table style="width:100%;background-image: none;border:none;">
+    <tr style="background-image: none;border:none;">
+      <!--<td style="width:10%;background-image: none;border:none;">-->
+        <!--<span style="float:left;margin-right: 20px;">-->
+          <!--<%= link_to image_tag("/images/back_button.png", :size=>"35x35"), roles_path(:case_study=>params[:case_study]), :title=>"Back to the Case Study" %>-->
+        <!--</span><br/><br/><br/>-->
+      <!--</td>-->
+      <td style="background-image: none;border:none;">
+        <% form_for @role do |f| %>
+         <p style="color: red"> <%= flash[:alert] %></p>
+          <p>
+            <%= f.hidden_field :case_study_id, :value=>@case_study.id %>
+          </p>
+          <p>
+            <%= f.label :name %><br />
+            <%= f.text_field :name %>
+          </p>
+          <p><%= f.submit %></p>
+        <% end %>
+      </td>
+    </tr>
+  </table>
+
+</div>

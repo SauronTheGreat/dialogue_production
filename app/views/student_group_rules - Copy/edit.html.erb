@@ -1,0 +1,20 @@
+<h1>Editing student_group_rule</h1>
+
+<% form_for(@student_group_rule) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :student_group_id %><br />
+    <%= f.text_field :student_group_id %>
+  </p>
+  <p>
+    <%= f.label :rule_id %><br />
+    <%= f.text_field :rule_id %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @student_group_rule %> |
+<%= link_to 'Back', student_group_rules_path %>

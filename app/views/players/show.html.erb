@@ -1,0 +1,20 @@
+<% title "Player" %>
+
+<p>
+  <strong>Game:</strong>
+  <%=h @player.game_id %>
+</p>
+<p>
+  <strong>User:</strong>
+  <%=h @player.user_id %>
+</p>
+<p>
+  <strong>Role:</strong>
+  <%=h @player.role_id %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_player_path(@player) %> |
+  <%= link_to "Destroy", @player, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", players_path %>
+</p>

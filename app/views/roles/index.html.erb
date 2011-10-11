@@ -1,0 +1,52 @@
+<div class="container">
+
+  <div class="sub_container_header" style="background-image: none;border:none;">
+    <span style="width:90%"><h2>Roles in <%= h @case_study.name %> Exercise</h2></span>
+          <span style="float:right;text-align:center;margin-top:-60px;font-size:12px;color:black;text-decoration: none;">
+            <%= link_to image_tag("/images/roles.png", :size=>"35x35"), new_role_path(:case_study=>@case_study.id), :title=>"New Role" %>
+            <br/>Add Role
+          </span>
+
+  </div>
+
+  <div class="sub_container_base" style="margin-top:-15px;">
+    <table style="width:100%;background-image: none;border:none;">
+      <tr style="background-image: none;border:none;">
+        <td style="background-image: none;border:none;">
+          <table style="width:50%">
+            <% i=0 %>
+            <% if @roles.count ==0 %>
+                <td>No Roles Defined Yet...</td>
+            <% end %>
+            <% for role in @roles %>
+                <tr>
+                  <td style="width:10%"><%= i+=1 %></td>
+                  <th style="border: 1px solid white">
+                    <% if current_user.admin or current_user.educator %>
+                        <% if Briefing.find(:first, :conditions=>["role_id=?", role.id]) %>
+                            <%= link_to role.name, new_briefing_path(:role=>role.id), :title=>"Edit the briefing" %>
+                            <%= image_tag("/images/bullet.png") %>
+                        <% else %>
+                            <%= link_to role.name, new_briefing_path(:role=>role.id), :title=>"Create the briefing" %>
+                            <%= image_tag("/images/bullet.png") %>
+                        <% end %>
+                    <% else %>
+                        <%= link_to role.name, Briefing.find(:first, :conditions=>["role_id=?", role.id]) %>
+                        <%= image_tag("/images/bullet.png") %>
+                    <% end %>
+                  </th>
+                  <td>
+                    <%= link_to image_tag("/images/delete_icon.png", :size => "25x25"), destroy_role_path(:id=>role.id), :confirm => 'Are you sure?'%>
+                  </td>
+                </tr>
+            <% end %>
+          </table>
+        </td>
+      </tr>
+    </table>
+    <br>
+    <%= link_to "Back to Exercise", case_study_path(@case_study.id) %>
+  </div>
+</div>
+
+
